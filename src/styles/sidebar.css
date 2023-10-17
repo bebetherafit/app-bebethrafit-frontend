@@ -1,0 +1,16 @@
+.sidebar{
+    width: 17vw;
+    padding: 1%;
+    border-right: 1px solid #e0e0e0;
+}
+.sidebar-account{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+}
+.sidebar-menus{
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+
+}

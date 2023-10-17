@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/login.css';
 
 function LoginPage() {
@@ -14,6 +15,7 @@ function LoginPage() {
         <form onSubmit={handleSubmit}>
           <input type="text" name="id" placeholder="이메일 아이디" className="idpw" />
           <input type="password" name="pw" placeholder="비밀번호" className="idpw" />
+          <Link to={'/dashboard'}>
           <div className="submits">
             <input type="submit" value="로그인" className="submit" />
             <button type="button" onClick={() => alert('카카오로 1초 로그인 / 회원가입')} className="submit kakao">
@@ -23,6 +25,7 @@ function LoginPage() {
               네이버로 1초 로그인 / 회원가입
             </button>
           </div>
+          </Link>
           <div className="signup">
             <div className="container">
               <a href="/signup" onClick={(event) => alert('회원가입')}>
