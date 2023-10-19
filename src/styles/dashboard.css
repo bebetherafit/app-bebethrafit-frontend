@@ -26,4 +26,5 @@ body {
 .dashboard-pressure-balance{
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly ;
 }

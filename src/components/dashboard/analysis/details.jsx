@@ -2,10 +2,10 @@ import React from 'react';
 
 const ProgressBar = ({ progress }) => {
     const containerStyles = {
-        height: 10,
+        height: 30,
         width: '100%',
         backgroundColor: "#e0e0de",
-        borderRadius: 50,
+        borderRadius: 5,
         margin: 50
     }
 
@@ -37,19 +37,33 @@ const FootPressDetails = () => {
         <div className="Details-container">
             <div className="TotalPressure">
                 <h3>총 압력 값</h3>
-                <ProgressBar progress={60} />
+                <p sytle={{weight: 'bold'}}>(Total Pressure)</p>
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <ProgressBar progress={60} />
+                    <ProgressBar progress={60} />
+                </div>
             </div>
             <div className="AveragePressure">
                 <h3>압력 평균 값</h3>
-                <ProgressBar progress={50} />
+                <p sytle={{weight: 'bold'}}>(Average Pressure)</p>
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <ProgressBar progress={60} />
+                    <ProgressBar progress={60} />
+                </div>
             </div>
             <div className="AreaNums">
                 <h3>면적 수</h3>
-                <ProgressBar progress={40} />
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <ProgressBar progress={60} />
+                    <ProgressBar progress={60} />
+                </div>
             </div>
             <div className="ArchAreas">
                 <h3>발 아치 면적</h3>
-                <ProgressBar progress={20} />
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <ProgressBar progress={60} />
+                    <ProgressBar progress={60} />
+                </div>
             </div>
         </div>
     );
