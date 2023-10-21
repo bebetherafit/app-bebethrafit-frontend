@@ -26,5 +26,17 @@ body {
 .dashboard-pressure-balance{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly ;
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard-container{
+        flex-direction: column;
+    }
+    .dashboard-content{
+        width: 100%;
+    }
+    .dashboard-pressure-balance{
+        flex-direction: column;
+    }
+    
 }
