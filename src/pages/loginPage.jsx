@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 import axios from 'axios';
 
@@ -15,8 +15,13 @@ function LoginPage() {
         username: email,
         password: password
       });
-      if (response.data && response.data.username) {
+      // JWT 토큰 저장
+      if (response.data && response.data.access_token) {
+        localStorage.setItem('access_token', response.data.access_token);
         navigate('/dashboard');
+      }
+      else {
+        alert('로그인 정보가 올바르지 않습니다.');
       }
     }
     catch (error) {
