@@ -12,7 +12,7 @@ function LoginPage() {
     const password = event.target.pw.value;
     try {
       const response = await axios.post('http://localhost:8000/login', {
-        username: email,
+        email: email,
         password: password
       });
       // JWT 토큰 저장

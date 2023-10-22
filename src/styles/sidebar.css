@@ -37,3 +37,49 @@
 .sidebarMenus li:last-child{
     margin-bottom: 5vh;
 }
+
+@media screen and (max-width: 768px)
+ {
+    .sidebar{
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .sidebarHeader{
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #109CF1;
+    }
+    .sidebarAccount{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .sidebarAccount .sidebarAccountInfo{
+        margin-top: 2.5vh;
+        margin-bottom: 2.5vh;
+        display: flex;
+        flex-direction: row;
+    }
+    .sidebarMenus{
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .sidebarMenus li{
+        margin-top: 5vh;
+        list-style: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #109CF1;
+        cursor: pointer;
+    }
+    /* 마지막 리스트에만 스타일 별도 적용 */
+    .sidebarMenus li:last-child{
+        margin-bottom: 5vh;
+    }
+    
+}
