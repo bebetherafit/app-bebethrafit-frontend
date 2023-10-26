@@ -8,13 +8,13 @@ import SignupPage from './pages/signupPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename="">
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/intro" element={<ServiceIntro />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="" element={<Navigate to="login" />} />
+        <Route path="intro" element={<ServiceIntro />} />
+        <Route path="signup" element={<SignupPage />} />
       </Routes>
     </Router>
   );

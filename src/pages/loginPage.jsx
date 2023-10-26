@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css';
 import axios from 'axios';
 
@@ -48,15 +48,15 @@ function LoginPage() {
           </div>
           <div className="signup">
             <div className="container">
-              <a href="/signup" onClick={(event) => alert('회원가입')}>
-                회원가입
-              </a>
+              <Link to="/signup">회원가입</Link>
             </div>
             |
             <div className="container">
-              <a href="/findpassword" onClick={(event) => alert('비밀번호 찾기')}>
-                비밀번호 찾기
-              </a>
+              <Link to="/findpassword">비밀번호 찾기</Link>
+            </div>
+            |
+            <div className="container">
+              <Link to="/dashboard">둘러보기</Link>
             </div>
           </div>
         </form>
