@@ -3,7 +3,7 @@ import React from 'react';
 import LoginPage from './pages/loginPage';
 import Dashboard from './pages/dashBoard';
 import ServiceIntro from './pages/serviceIntro';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SignupPage from './pages/signupPage';
 
 function App() {
