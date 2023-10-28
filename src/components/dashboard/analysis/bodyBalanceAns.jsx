@@ -16,13 +16,13 @@ const BodyBalance = ({ leftPercentage, rightPercentage }) => {
                 <div style={{ width: '80%' }}>
                     <table className='BalanceData' style={{ width: '55%', textAlign: 'center', borderSpacing: '10px' }}>
                         <colgroup>
-                            <col style={{ width: '10%' }} /> {/* 빈 열 추가 */}
+                            <col style={{ width: '10%' }} />
                             <col style={{ width: '40%' }} />
                             <col style={{ width: '40%' }} />
                         </colgroup>
                         <thead>
                             <tr>
-                                <th style={{ backgroundColor: 'transparent', verticalAlign: 'middle' }}></th> {/* 빈 열 추가 */}
+                                <th style={{ backgroundColor: 'transparent', verticalAlign: 'middle' }}></th>
                                 <th style={{ backgroundColor: '#F7685B', borderRadius: '5px', color: '#ffffff', verticalAlign: 'middle' }}>왼발</th>
                                 <th style={{ backgroundColor: '#2ED47A', borderRadius: '5px', color: '#ffffff', verticalAlign: 'middle' }}>오른발</th>
                             </tr>
