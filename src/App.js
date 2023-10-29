@@ -15,7 +15,7 @@ function App() {
 
   const ProtectedRoute = ({ children }) => {
     if (!isAuthenticated) {
-      alert('로그인이 필요합니다.');
+      alert('로그인을 해주세요.');
       return <Navigate to="/login" />;
     }
     return children;
