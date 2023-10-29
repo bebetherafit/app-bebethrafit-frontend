@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import bodyBalanceImg from '../../../assets/human-icon.png';
 
-const BodyBalance = ({ leftPercentage, rightPercentage }) => {
-    leftPercentage = (-0.127 * 100).toFixed(2);
-    rightPercentage = (+0.123 * 100).toFixed(2);
-    const unbalValue = (leftPercentage - rightPercentage).toFixed(2);
+const BodyBalance = () => {
+    const [userData, setUserData] = useState({
+        leftPercentage: (-0.127 * 100).toFixed(2),
+        rightPercentage: (+0.123 * 100).toFixed(2),
+    });
+
+    const unbalValue = (userData.leftPercentage - userData.rightPercentage).toFixed(2);
+
+    if (!userData) {
+        return <div>정보가 없습니다</div>;
+    }
 
     return (
         <div className='bodyBalanceContainter'>
@@ -30,8 +37,8 @@ const BodyBalance = ({ leftPercentage, rightPercentage }) => {
                         <tbody>
                             <tr>
                                 <td style={{ verticalAlign: 'middle' }}></td> {/* 빈 열 추가 */}
-                                <td style={{ verticalAlign: 'middle' }}>{leftPercentage}%</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightPercentage}%</td>
+                                <td style={{ verticalAlign: 'middle' }}>{userData.leftPercentage}%</td>
+                                <td style={{ verticalAlign: 'middle' }}>{userData.rightPercentage}%</td>
                             </tr>
                             <tr>
                                 <td></td>

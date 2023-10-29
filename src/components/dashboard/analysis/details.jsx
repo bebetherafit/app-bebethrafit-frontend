@@ -56,7 +56,10 @@ const FootPressDetails = () => {
     }, []);
 
     if (!userData) {
-        return <div>정보가 없습니다.</div>; // 데이터 로딩 중일 때의 표시
+        return <div style={{fontSize: '2.5em', marginLeft: 'auto', marginRight: 'auto', weight: 'bold' }}>
+            입력된 신체 데이터가 없습니다. <br />
+            아래 메일로 문의 해주세요. <br />
+            </div>; // 데이터 로딩 중일 때의 표시
     }
 
     if (!userData.Authorization) {
