@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/sidebar.css';
-import profilePic from '../../assets/bebeimg.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../../styles/sidebar.css';
+import profilePic from '../../assets/bebeimg.png';
+import { ReactComponent as CommunityIcon} from '../../assets/icons/chat.svg';
+import { ReactComponent as CustomerServiceIcon } from '../../assets/icons/contacts.svg';
+import { ReactComponent as FindClinicIcon } from '../../assets/icons/email.svg';
+import { ReactComponent as FitnessLogIcon } from '../../assets/icons/tasks.svg';
+import { ReactComponent as AnalysisReportIcon } from '../../assets/icons/dashboard-active.svg';
+
 
 const Sidebar = () => {
     const [username, setName] = useState('');
@@ -52,24 +58,39 @@ const Sidebar = () => {
                 </div>
             </div>
             <div className="sidebarMenus">
-                <ul>
-                    <li>
-                        <Link to="#">분석 리포트</Link>
-                    </li>
-                    <li>
-                        <Link to="#">맞춤 성장 운동 기록</Link>
-                    </li>
-                    <li>
-                        <Link to="#">센터 찾기</Link>
-                    </li>
-                    <li>
-                        <Link to="#">커뮤니티</Link>
-                    </li>
-                    <li>
-                        <Link to="#">고객센터</Link>
-                    </li>
-                </ul>
-            </div>
+    <ul>
+        <li>
+            <Link to="" className='sideMenuList'>
+                <AnalysisReportIcon width={20} height={20} alt="analysis report" />
+                분석 리포트
+            </Link>
+        </li>
+        <li>
+            <Link to="" className='sideMenuList'>
+                <FitnessLogIcon width={20} height={20} alt='fitness log' />
+                맞춤 성장 운동 기록
+            </Link>
+        </li>
+        <li>
+            <Link to="" className='sideMenuList'>
+                <FindClinicIcon width={20} height={20} alt='find clinic' />
+                센터 찾기
+            </Link>
+        </li>
+        <li>
+            <Link to="" className='sideMenuList'>
+                <CustomerServiceIcon width={20} height={20} alt='customer service' />
+                고객센터
+            </Link>
+        </li>
+        <li>
+            <Link to="" className='sideMenuList'>
+                <CommunityIcon width={20} height={20} alt='community' />
+                커뮤니티
+            </Link>
+        </li>
+    </ul>
+</div>
         </div>
     );
 };

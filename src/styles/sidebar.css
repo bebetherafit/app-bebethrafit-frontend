@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-top: 1px solid #e0e0e0;   
+    border-top: 1px solid #e0e0e0;
 }
 .sidebarAccount .sidebarAccountInfo{
     margin-top: 2.5vh;
@@ -24,17 +24,39 @@
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
 }
-
-.sidebarMenus li{
+.sidebarMenus li {
     margin-top: 5vh;
     list-style: none;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #109CF1;
-    cursor: pointer;
 }
+
+.sideMenuList {
+    display: inline-flex; /* flexbox를 사용하여 아이콘과 텍스트 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: #334D6E;
+    cursor: pointer;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    gap: 0.5rem; /* 아이콘과 텍스트 사이의 간격 */
+}
+
+/* 이미지와 텍스트 간의 간격 조정 */
+.sideMenuList img {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.sideMenuList:hover {
+    color: #109CF1; /* 호버 시의 색상 */
+}
+
+/* 선택된/활성화된 링크의 경우 */
+.sideMenuList.active {
+    color: #109CF1;
+}
+
 /* 마지막 리스트에만 스타일 별도 적용 */
-.sidebarMenus li:last-child{
+.sidebarMenus li:last-child {
     margin-bottom: 5vh;
 }
 
