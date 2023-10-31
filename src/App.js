@@ -5,6 +5,7 @@ import Dashboard from './pages/dashBoard';
 import ServiceIntro from './pages/serviceIntro';
 import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SignupPage from './pages/signupPage';
+import AdminPage from './pages/adminPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);  // 상태와 상태 설정 함수
@@ -30,6 +31,7 @@ function App() {
         <Route path="" element={<Navigate to="login" />} />
         <Route path="intro" element={<ServiceIntro />} />
         <Route path="signup" element={<SignupPage />} />
+        <Route path='admin' element={<AdminPage />} />
       </Routes>
     </Router>
   );

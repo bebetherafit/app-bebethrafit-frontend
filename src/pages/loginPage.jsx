@@ -13,13 +13,15 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
     try {
       const response = await axios.post('http://localhost:8000/login', {
         email: email,
-        password: password
+        password: password,
       });
       // JWT 토큰 저장
       if (response.data && response.data.access_token) {
         localStorage.setItem('access_token', response.data.access_token);
         onLoginSuccess(); // 로그인 성공 후 onLoginSuccess 함수 호출
-        navigate('/dashboard');
+        // is_admin 값에 따라 관리자 페이지 또는 대시보드로 이동
+        const destination = response.data.is_admin ? '/admin' : '/dashboard';
+        navigate(destination);
       }
       else {
         alert('로그인 정보가 올바르지 않습니다.');
