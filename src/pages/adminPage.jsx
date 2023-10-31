@@ -1,40 +1,122 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
+import { useTable, useSortBy, usePagination } from 'react-table';
 import axios from 'axios';
 
 const AdminPage = () => {
-    const [users, setUsers] = useState([]);
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-        // JWT 토큰을 로컬 스토리지에서 가져옵니다.
-        const token = localStorage.getItem('access_token');
+  // 사용자 데이터 가져오기
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get('http://localhost:8000/api/users');
+      setData(result.data);
+    };
 
-        // 사용자 목록을 가져오는 함수
-        const fetchUsers = async () => {
-            try {
-                const response = await axios.get('http://localhost:8000/api/users', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`  // 토큰을 사용하여 인증
-                    }
-                });
-                setUsers(response.data);  // 상태를 업데이트하여 사용자 목록을 저장
-            } catch (error) {
-                console.error('사용자 목록을 가져오는 중 오류가 발생했습니다.', error);
-            }
-        };
+    fetchData();
+  }, []);
 
-        fetchUsers();
-    }, []);
+  // 컬럼 정의
+  const columns = useMemo(() => [
+    {
+      Header: 'ID',
+      accessor: 'id', // 데이터의 key와 일치해야 함
+    },
+    {
+      Header: 'Username',
+      accessor: 'username',
+    },
+    {
+      Header: 'Email',
+      accessor: 'email',
+    },
+    // 필요하다면 더 많은 컬럼 추가
+  ], []);
 
-    return (
-        <div>
-            <h1>사용자 목록</h1>
-            <ul>
-                {users.map(user => (
-                    <li key={user.id}>{user.username} - {user.email}</li>
+  // react-table 인스턴스 사용
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page, // 대신 rows를 사용하면 페이지네이션이 없는 전체 데이터를 표시
+    prepareRow,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable({ columns, data }, useSortBy, usePagination);
+
+  return (
+    <div>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                >
+                  {column.render('Header')}
+                  <span>
+                    {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map(row => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => (
+                  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 ))}
-            </ul>
-        </div>
-    );
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      {/* 페이지네이션 */}
+      <div>
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </button>
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </button>
+        <span>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
+        <select
+          value={pageSize}
+          onChange={e => {
+            setPageSize(Number(e.target.value));
+          }}
+        >
+          {[10, 20, 30, 40, 50].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
 };
 
 export default AdminPage;
