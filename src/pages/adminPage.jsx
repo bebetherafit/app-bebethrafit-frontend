@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import axios from 'axios';
+import "../styles/admin.css";
 
 const AdminPage = () => {
   const [data, setData] = useState([]);
