@@ -9,7 +9,7 @@ const AdminPage = () => {
   // 사용자 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get('https://3ebb-1-223-77-28.ngrok-free.app/api/users');
+      const result = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/users');
       setData(result.data);
     };
 

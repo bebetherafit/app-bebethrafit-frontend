@@ -11,7 +11,7 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
     const email = event.target.id.value;
     const password = event.target.pw.value;
     try {
-      const response = await axios.post('https://3ebb-1-223-77-28.ngrok-free.app/login', {
+      const response = await axios.post('https://4ed5-1-223-77-28.ngrok-free.app/login', {
         email: email,
         password: password,
       });

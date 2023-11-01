@@ -41,7 +41,7 @@ const FootPressDetails = () => {
         const fetchData = async () => {
             try {
                 // 여기에 실제 API 엔드포인트 URL을 입력하세요.
-                const response = await axios.get('https://3ebb-1-223-77-28.ngrok-free.app/api/user/foot-pressure', {
+                const response = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user/foot-pressure', {
                     headers: {
                         'Authorization': `Bearer YOUR_USER_TOKEN` // 인증 토큰을 추가하세요.
                     }
