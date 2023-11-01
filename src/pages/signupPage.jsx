@@ -13,7 +13,7 @@ function SignupPage() {
       const password = event.target.pw.value;
 
       try {
-        const response = await axios.post('http://localhost:8000/signup', {
+        const response = await axios.post(' https://3ebb-1-223-77-28.ngrok-free.app/signup', {
           email: email,  // email로 변경
           username: name,
           password: password

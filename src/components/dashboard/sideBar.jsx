@@ -27,7 +27,7 @@ const Sidebar = () => {
             headers: { Authorization: `Bearer ${token}` }
         };
 
-        axios.get('http://localhost:8000/api/user', config)
+        axios.get('https://3ebb-1-223-77-28.ngrok-free.app/api/user', config)
             .then(response => {
                 setName(response.data.username);  // 백엔드에서 반환하는 필드명에 맞게 수정해야 합니다.
                 setEmail(response.data.email);
