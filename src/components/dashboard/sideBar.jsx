@@ -31,7 +31,7 @@ const Sidebar = () => {
             headers: { Authorization: `Bearer ${token}` }
         };
 
-        axios.get('http://localhost:8000/api/user', config)
+        axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user', config)
             .then(response => {
                 setName(response.data.username);
                 setEmail(response.data.email);
