@@ -9,12 +9,35 @@ const AdminPage = () => {
   // 사용자 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/users');
-      setData(result.data);
+      try {
+        const result = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/users',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning' : '69420'
+  
+          }
+        }
+        );
+        
+        // Log the data to see what's actually being returned.
+        console.log(result.data);
+        // Check if result.data is an array before setting it to state.
+        if (Array.isArray(result.data)) {
+          setData(result.data);
+        } else {
+          // Handle the case where result.data is not an array.
+          console.error('Fetched data is not an array:', result.data);
+        }
+      } catch (error) {
+        // Handle any errors in fetching data here.
+        console.error('Error fetching data:', error);
+      }
     };
-
+  
     fetchData();
   }, []);
+  
 
   // 컬럼 정의
   const columns = useMemo(() => [
