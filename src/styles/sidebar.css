@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-top: 1px solid #e0e0e0;   
+    border-top: 1px solid #e0e0e0;
 }
 .sidebarAccount .sidebarAccountInfo{
     margin-top: 2.5vh;
@@ -24,62 +24,87 @@
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
 }
-
-.sidebarMenus li{
+.sidebarMenus li {
     margin-top: 5vh;
     list-style: none;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #109CF1;
-    cursor: pointer;
-}
-/* 마지막 리스트에만 스타일 별도 적용 */
-.sidebarMenus li:last-child{
-    margin-bottom: 5vh;
 }
 
-@media screen and (max-width: 768px)
- {
-    .sidebar{
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #e0e0e0;
-    }
-    .sidebarHeader{
-        margin-top: 5vh;
-        margin-bottom: 5vh;
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: #109CF1;
-    }
-    .sidebarAccount{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        border-top: 1px solid #e0e0e0;
-        border-bottom: 1px solid #e0e0e0;
-    }
-    .sidebarAccount .sidebarAccountInfo{
-        margin-top: 2.5vh;
-        margin-bottom: 2.5vh;
-        display: flex;
-        flex-direction: row;
-    }
-    .sidebarMenus{
-        border-top: 1px solid #e0e0e0;
-        border-bottom: 1px solid #e0e0e0;
-    }
-    .sidebarMenus li{
-        margin-top: 5vh;
-        list-style: none;
-        font-size: 1.2rem;
-        font-weight: 500;
-        color: #109CF1;
-        cursor: pointer;
-    }
-    /* 마지막 리스트에만 스타일 별도 적용 */
-    .sidebarMenus li:last-child{
-        margin-bottom: 5vh;
+.sideMenuList {
+    display: inline-flex; /* flexbox를 사용하여 아이콘과 텍스트 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: #334D6E;
+    cursor: pointer;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    gap: 0.5rem; /* 아이콘과 텍스트 사이의 간격 */
+}
+
+/* 이미지와 텍스트 간의 간격 조정 */
+.sideMenuList img {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.sideMenuList:hover {
+    color: #109CF1; /* 호버 시의 색상 */
+}
+
+/* 선택된/활성화된 링크의 경우 */
+.sideMenuList.active {
+    color: #109CF1;
+}
+
+/* 마지막 리스트에만 스타일 별도 적용 */
+.sidebarMenus li:last-child {
+    margin-bottom: 5vh;
+}
+/* Mobile Sidebar CSS Enhancements */
+
+/* When screen size is <= 768px, show sidebar as an overlay */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.95);
+        z-index: 9999;
+        transition: 0.5s;
     }
     
+    /* When sidebar is active, slide it in from the left */
+    .sidebar.active {
+        left: 0;
+    }
+
+    .sidebarHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Add a close button for the sidebar */
+    .sidebarHeader .close-btn {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .sidebarAccountInfo img {
+        width: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .sidebarAccount .userInfo {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebarAccount .userInfo p {
+        margin: 0;
+    }
 }
+
