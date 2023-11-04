@@ -1,17 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import bodyBalanceImg from '../../../assets/human-icon.png';
 
 const BodyBalance = () => {
-    const [userData, setUserData] = useState({
-        leftPercentage: (-0.127 * 100).toFixed(2),
-        rightPercentage: (+0.123 * 100).toFixed(2),
-    });
+    const [userData, setUserData] = useState(null); // 초기 상태를 null로 설정
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/users',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning' : '69420'
+                    }
+                });
+                console.log(result.data);
+                if (Array.isArray(result.data)) {
+                    setUserData(result.data);
+                }
+                else {
+                    console.error('Fetched data is not an array:', result.data);
+                }
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-    const unbalValue = (userData.leftPercentage - userData.rightPercentage).toFixed(2);
+        fetchData().then(data => {
+            if (data) {
+                // 데이터가 있는 경우, 상태를 업데이트합니다.
+                setUserData({
+                    leftPercentage: (data.left * 100).toFixed(2),
+                    rightPercentage: (data.right * 100).toFixed(2),
+                });
+            } else {
+                // 데이터가 없는 경우, userData 상태를 null로 유지합니다.
+                setUserData(null);
+            }
+        });
+    }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 합니다.
 
     if (!userData) {
-        return <div>정보가 없습니다</div>;
+        return <div>정보가 없습니다</div>; // userData가 null이면 메시지 출력
     }
+
+    // userData가 유효한 경우에 대한 나머지 컴포넌트 렌더링
+    const unbalValue = (userData.leftPercentage - userData.rightPercentage).toFixed(2);
 
     return (
         <div className='bodyBalanceContainter'>
