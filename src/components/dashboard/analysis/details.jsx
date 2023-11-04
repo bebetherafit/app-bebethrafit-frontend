@@ -41,7 +41,7 @@ const FootPressDetails = () => {
         const fetchData = async () => {
             try {
                 // 여기에 실제 API 엔드포인트 URL을 입력하세요.
-                const response = await axios.get('/api/user/foot-pressure', {
+                const response = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user/foot-pressure', {
                     headers: {
                         'Authorization': `Bearer YOUR_USER_TOKEN` // 인증 토큰을 추가하세요.
                     }
@@ -56,7 +56,10 @@ const FootPressDetails = () => {
     }, []);
 
     if (!userData) {
-        return <div>정보가 없습니다.</div>; // 데이터 로딩 중일 때의 표시
+        return <div style={{fontSize: '2.5em', marginLeft: 'auto', marginRight: 'auto', weight: 'bold' }}>
+            입력된 신체 데이터가 없습니다. <br />
+            아래 메일로 문의 해주세요. <br />
+            </div>; // 데이터 로딩 중일 때의 표시
     }
 
     if (!userData.Authorization) {

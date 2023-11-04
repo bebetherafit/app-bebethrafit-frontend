@@ -5,6 +5,7 @@ import Dashboard from './pages/dashBoard';
 import ServiceIntro from './pages/serviceIntro';
 import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SignupPage from './pages/signupPage';
+import AdminPage from './pages/adminPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);  // 상태와 상태 설정 함수
@@ -15,7 +16,7 @@ function App() {
 
   const ProtectedRoute = ({ children }) => {
     if (!isAuthenticated) {
-      alert('로그인이 필요합니다.');
+      alert('로그인을 해주세요.');
       return <Navigate to="/login" />;
     }
     return children;
@@ -30,6 +31,7 @@ function App() {
         <Route path="" element={<Navigate to="login" />} />
         <Route path="intro" element={<ServiceIntro />} />
         <Route path="signup" element={<SignupPage />} />
+        <Route path='admin' element={<AdminPage />} />
       </Routes>
     </Router>
   );
