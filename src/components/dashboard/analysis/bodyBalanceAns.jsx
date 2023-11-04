@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import bodyBalanceImg from '../../../assets/human-icon.png';
+import config from '../../../config.json';
 
+const BACKEND_URL = config.macBackend;
 const BodyBalance = () => {
     const [userData, setUserData] = useState(null); // 초기 상태를 null로 설정
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user',
+                const result = await axios.get(BACKEND_URL + '/api/user',
                 {
                     headers: {
                         'Content-Type': 'application/json',

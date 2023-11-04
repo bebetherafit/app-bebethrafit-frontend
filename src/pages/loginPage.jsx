@@ -2,7 +2,9 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css';
 import axios from 'axios';
+import config from '../config.json';
 
+const BACKEND_URL = config.macBackend;
 
 function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
 
@@ -23,7 +25,7 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
     const email = event.target.id.value;
     const password = event.target.pw.value;
     try {
-      const response = await axios.post('https://4ed5-1-223-77-28.ngrok-free.app/login', {
+      const response = await axios.post(BACKEND_URL+ '/login', {
         email: email,
         password: password,
       });

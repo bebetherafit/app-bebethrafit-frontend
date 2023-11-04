@@ -8,7 +8,9 @@ import { ReactComponent as CustomerServiceIcon } from '../../assets/icons/contac
 import { ReactComponent as FindClinicIcon } from '../../assets/icons/email.svg';
 import { ReactComponent as FitnessLogIcon } from '../../assets/icons/tasks.svg';
 import { ReactComponent as AnalysisReportIcon } from '../../assets/icons/dashboard-active.svg';
+import config from '../../config.json';
 
+const BACKEND_URL = config.macBackend;
 const Sidebar = () => {
     const [username, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -31,7 +33,7 @@ const Sidebar = () => {
             headers: { Authorization: `Bearer ${token}` }
         };
 
-        axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user', config)
+        axios.get(BACKEND_URL + '/api/user', config)
             .then(response => {
                 setName(response.data.username);
                 setEmail(response.data.email);
