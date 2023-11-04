@@ -7,7 +7,7 @@ const BodyBalance = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/users',
+                const result = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user',
                 {
                     headers: {
                         'Content-Type': 'application/json',
