@@ -21,7 +21,6 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
 
 
   const { setUser } = useContext(UserContext);
-  
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,10 +35,9 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
       // JWT 토큰 저장
       if (response.data && response.data.access_token) {
         localStorage.setItem('access_token', response.data.access_token);
-        onLoginSuccess(); // 로그인 성공 후 onLoginSuccess 함수 호출
-        // is_admin 값에 따라 관리자 페이지 또는 대시보드로 이동
-        const destination = response.data.is_admin ? '/admin' : '/dashboard';
-        setUser(response.data.user_info);
+        setUser(response.data.user_info); // 로그인한 사용자 정보 저장
+        onLoginSuccess();
+        const destination = response.data.user_info.is_admin ? '/admin' : '/dashboard'; // 관리자인 경우 /admin으로 이동
         navigate(destination);
       }
       else {
