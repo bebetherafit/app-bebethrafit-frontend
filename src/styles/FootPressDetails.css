@@ -1,0 +1,58 @@
+.pressure-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.progress-bar-container {
+    border: 1px solid #333;
+    width: 100%;
+  }
+.progress-bar {
+background-color: #e0e0de;
+border-radius: 5px;
+height: 20px;
+position: relative;
+overflow: hidden; /* 내부 요소가 범위를 벗어나지 않도록 함 */
+
+}
+.pressure-section {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+width: 50%;
+max-width: 100%;
+}
+
+.pressure-table {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    border: none
+}
+
+.progress-bar-filler {
+background-color: #F7685B; /* 기본값, 실제 색상은 상태에 따라 결정됩니다 */
+height: 100%;
+transition: width 1s ease-out; /* 부드러운 애니메이션 효과 */
+display: flex;
+align-items: center;
+justify-content: center; /* 텍스트를 중앙에 배치 */
+}
+
+.progress-bar-indicator {
+position: absolute;
+top: 100%;
+width: 0;
+height: 0;
+border-left: 10px solid transparent;
+border-right: 10px solid transparent;
+border-bottom: 10px solid black; /* 화살표 색상 */
+transform: translateX(-50%);
+}
+
+.legend-item {
+color: black; /* 범례 텍스트 색상 */
+font-size: 0.75em; /* 범례 텍스트 크기 */
+white-space: nowrap; /* 텍스트가 한 줄에 표시되도록 함 */
+}

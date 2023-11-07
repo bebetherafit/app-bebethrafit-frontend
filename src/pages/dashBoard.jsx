@@ -17,7 +17,8 @@ const Dashboard = () => {
                 <FootPressDistributeAns />
                 <BodyBalance />
                 </div>
-                <Details />
+                <Details title={'총 압력값'}/>
+                <Details title={'압력 평균 값'}/>
             </div>
         </div>
     );
