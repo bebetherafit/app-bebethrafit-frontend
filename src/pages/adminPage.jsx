@@ -8,7 +8,7 @@ const BACKEND_URL = config.macBackend;
 const AdminPage = () => {
   const [data, setData] = useState([]);
 
-  // 사용자 데이터 가져오기
+  // 관리자인 경우에만 사용자 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,8 +20,6 @@ const AdminPage = () => {
           }
         }
         );
-        // Log the data to see what's actually being returned.
-        console.log(result.data);
         // Check if result.data is an array before setting it to state.
         if (Array.isArray(result.data)) {
           setData(result.data);

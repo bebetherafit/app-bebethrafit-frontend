@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { UserContext } from '../components/UserContext';
 import '../styles/login.css';
 import axios from 'axios';
 import config from '../config.json';
@@ -18,6 +19,9 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
 
   // naver login
 
+
+  const { setUser } = useContext(UserContext);
+  
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,6 +39,7 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
         onLoginSuccess(); // 로그인 성공 후 onLoginSuccess 함수 호출
         // is_admin 값에 따라 관리자 페이지 또는 대시보드로 이동
         const destination = response.data.is_admin ? '/admin' : '/dashboard';
+        setUser(response.data.user_info);
         navigate(destination);
       }
       else {

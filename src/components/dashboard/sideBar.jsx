@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import '../../styles/sidebar.css';
 import profilePic from '../../assets/bebeimg.png';
 import { ReactComponent as CommunityIcon } from '../../assets/icons/chat.svg';
@@ -8,12 +8,12 @@ import { ReactComponent as CustomerServiceIcon } from '../../assets/icons/contac
 import { ReactComponent as FindClinicIcon } from '../../assets/icons/email.svg';
 import { ReactComponent as FitnessLogIcon } from '../../assets/icons/tasks.svg';
 import { ReactComponent as AnalysisReportIcon } from '../../assets/icons/dashboard-active.svg';
-import config from '../../config.json';
 
-const BACKEND_URL = config.macBackend;
+
+
 const Sidebar = () => {
-    const [username, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const { user } = useContext(UserContext);
+
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
@@ -27,20 +27,6 @@ const Sidebar = () => {
         };
     }, []);
 
-    useEffect(() => {
-        const token = localStorage.getItem('access_token');
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-
-        axios.get(BACKEND_URL + '/api/user', config)
-            .then(response => {
-                setName(response.data.username);
-                setEmail(response.data.email);
-            })
-            .catch(error => console.error(error));
-    }, []);
-
     return (
         <div className={`sidebar ${isMobile ? 'mobile' : ''}`}>
             <div className="sidebarHeader">
@@ -50,8 +36,8 @@ const Sidebar = () => {
                 <div className="sidebarAccountInfo">
                     <img src={profilePic} width={50} alt="user avatar" />
                     <div className='userInfo'>
-                        <p>{username} | 베베센터</p>
-                        <p>{email}</p>
+                        <p>{user.username}</p>
+                        <p>{user.email}</p>
                     </div>
                 </div>
             </div>
