@@ -6,6 +6,7 @@ import FootPressDistributeAns from '../components/dashboard/analysis/footPressDi
 import Details from '../components/dashboard/analysis/details';
 import BodyBalance from '../components/dashboard/analysis/bodyBalanceAns';
 import '../styles/dashboard.css';
+import Calendar from '../components/Calender';
 
 const Dashboard = () => {
     return (
@@ -13,6 +14,7 @@ const Dashboard = () => {
             <Sidebar />
             <div className="dashboard-content">
                 <DashBoardHeader />
+                <Calendar />
                 <div className="dashboard-pressure-balance">
                 <FootPressDistributeAns />
                 <BodyBalance />

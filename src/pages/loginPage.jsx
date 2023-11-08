@@ -75,7 +75,7 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
             </div>
             |
             <div className="container">
-              <Link to="/dashboard">둘러보기</Link>
+              <Link to="/newbie">둘러보기</Link>
             </div>
           </div>
         </form>
