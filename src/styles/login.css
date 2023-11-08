@@ -9,8 +9,8 @@
 }
 .inner .bebemain {
     position: relative;
-    width: 550px;
-    height: 450px;
+    width: 30vw;
+    height: auto;
     min-height: 450px;
     display: flex;
     justify-content: center;
@@ -103,16 +103,16 @@
     margin: 20px auto;
     text-align: center;
 }
-.signup .container {
+.signup .login-menu-set {
     flex: 1;
     margin: auto;
 }
-.signup .container a {
+.signup .login-menu-set a {
     text-decoration: none;
     color: #000;
     text-align: center;
     size: 20px
 }
-.signup .container a:hover {
+.signup .login-menu-set a:hover {
     font-weight: bolder;
 }

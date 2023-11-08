@@ -12,20 +12,30 @@ const getFirstDayOfMonth = (year, month) => {
 };
 
 const MonthlySchedule = () => {
-  // const [currentDate, setCurrentDate] = useState(new Date());
-  // const [diagnosisDates, setDiagnosisDates] = useState([]); // 데이터베이스에서 가져온 진단 날짜들
-  const [currentDate] = useState(new Date());
-  const [diagnosisDates] = useState([]); // 데이터베이스에서 가져온 진단 날짜들
+  const [currentDate, setCurrentDate] = useState(new Date());
+  // const [diagnosisDates, setDiagnosisDates] = useState([]); // fetched from the database
+  const [diagnosisDates] = useState([]); // fetched from the database
+
   const navigate = useNavigate();
 
   useEffect(() => {
     // 데이터베이스에서 진단 기록이 있는 날짜들을 가져오는 로직을 구현해야 합니다.
     // fetchDiagnosisDates().then(data => setDiagnosisDates(data));
   }, []);
-
   const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
   const firstDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth());
 
+  // Navigate to the previous month
+  const handlePrevMonth = () => {
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+    setCurrentDate(newDate);
+  };
+
+  // Navigate to the next month
+  const handleNextMonth = () => {
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+    setCurrentDate(newDate);
+  };
   // 날짜 클릭 핸들러
   const handleDateClick = (date) => {
     // navigate 함수를 사용하여 특정 날짜의 진단 데이터 페이지로 이동
@@ -39,14 +49,31 @@ const MonthlySchedule = () => {
 
   return (
     <div>
-      <h2>{currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월 측정기록</h2>
+      <div className="month-navigation">
+        <button onClick={handlePrevMonth}>&lt; Prev</button>
+        <h2>{currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월 측정기록</h2>
+        <button onClick={handleNextMonth}>Next &gt;</button>
+      </div>
+
       {/* 캘린더 UI 구성 */}
       <div className="calendar">
-        {/* 날짜 셀을 생성하는 로직 */}
-        {[...Array(daysInMonth).keys()].map(day => {
-          // const dayIndex = day + firstDay; // 요일 인덱스 조정
+      <div className="weekday-header">Sun</div>
+      <div className="weekday-header">Mon</div>
+      <div className="weekday-header">Tue</div>
+      <div className="weekday-header">Wed</div>
+      <div className="weekday-header">Thu</div>
+      <div className="weekday-header">Fri</div>
+      <div className="weekday-header">Sat</div>
+        
+        {/* Empty cells for days before the first of the month */}
+        {Array.from({ length: firstDay }, (_, i) => (
+          <div className="empty-cell" key={i}></div>
+        ))}
+        
+        {/* Day cells for each day of the month */}
+        {Array.from({ length: daysInMonth }, (_, day) => {
           const dayOfMonth = day + 1;
-          const isDiagnosisDate = diagnosisDates.includes(dayOfMonth); // 진단 기록이 있는지 확인
+          const isDiagnosisDate = diagnosisDates.includes(dayOfMonth);
           return (
             <div
               key={day}
@@ -58,11 +85,12 @@ const MonthlySchedule = () => {
           );
         })}
       </div>
-      <Link to='/diagnosis'>
+
         <div className="view-calendar-button">
-          날짜 더보기
+          <Link to='/diagnosis'>
+            클릭한 날짜로 기록 확인하기
+          </Link>
         </div>
-      </Link>
     </div>
   );
 };

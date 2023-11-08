@@ -1,6 +1,6 @@
 /* DiagnosisListPage.css */
 
-.container {
+.diagnosis-container {
     width: 100%;
     display: flex;
     flex-direction: column;

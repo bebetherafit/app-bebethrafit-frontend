@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./dashboard/calender.css";
 
 
 const Calendar = () => {
@@ -27,47 +28,36 @@ const Calendar = () => {
         const diff = dateCopy.getDate() - day + (day === 0 ? - 6 : 0); // Adjust when week starts on Sunday
         return new Date(dateCopy.setDate(diff));
     };
-
-    // const handlePrevWeek = () => {
-    //     setDate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7));
-    // };
-
-    // const handleNextWeek = () => {
-    //     setDate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7));
-    // };
-
     return (
-        <div>
-            <div>
-                {/* <button onClick={handlePrevWeek}>Prev Week</button> */}
-                <span>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long' }).format(date) + " 측정일"}</span>
-                {/* <button onClick={handleNextWeek}>Next Week</button> */}
+        <div className="calendar-container">
+            <div className="calendar-header">
+                <span>
+                    <h4>
+                        {new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long' }).format(date) + " 측정일"}
+                    </h4>
+                    </span>
                 <Link to='/diagnosis'>날짜 더보기</Link>
             </div>
             <table>
                 <thead>
-                    <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
+                <tr>
+                    {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
+                        <th key={index} className={index === new Date().getDay() ? "current-day" : ""}>
+                            {day}
+                        </th>
+                    ))}
+                </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        {days.map((day, index) => (
-                            <td
-                                key={index}
-                                style={{
-                                    backgroundColor: day.toDateString() === new Date().toDateString() ? "yellow" : "transparent",
-                                }}
-                            >
-                                {day.getDate()}
-                            </td>
-                        ))}
+                    {days.map((day, index) => (
+                        <td
+                            key={index}
+                            className={day.toDateString() === new Date().toDateString() ? "current-day" : ""}
+                        >
+                            {day.getDate()}
+                        </td>
+                    ))}
                     </tr>
                 </tbody>
             </table>

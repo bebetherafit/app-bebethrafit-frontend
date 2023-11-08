@@ -66,16 +66,16 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
             </button>
           </div>
           <div className="signup">
-            <div className="container">
+            <div className="login-menu-set">
               <Link to="/signup">회원가입</Link>
             </div>
             |
-            <div className="container">
+            <div className="login-menu-set">
               <Link to="/findpassword">비밀번호 찾기</Link>
             </div>
             |
-            <div className="container">
-              <Link to="/newbie">둘러보기</Link>
+            <div className="login-menu-set">
+              <Link to="/intro">둘러보기</Link>
             </div>
           </div>
         </form>

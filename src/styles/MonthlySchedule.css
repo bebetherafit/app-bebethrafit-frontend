@@ -1,61 +1,80 @@
-
-.container {
-  font-family: 'Arial', sans-serif;
-  text-align: center;
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* creates 7 equal columns for the days */
+  gap: 10px; /* space between the cells */
+  max-width: 600px; /* adjust based on your preference */
+  margin: auto;
+  padding: 2em;
 }
 
-.header {
-  font-size: 24px;
-  color: #333;
+.day-cell, .empty-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px; /* fixed height for each cell */
+  border-radius: 50%; /* creates the circle shape for dates */
+  color: #000; /* default text color, change as needed */
+}
+
+.diagnosis {
+  background-color: #007bff; /* blue background for diagnosis days */
+  color: white; /* white text for contrast */
+}
+
+/* Style for the weekday headers */
+.weekday-header {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Style for the button at the bottom */
+.view-calendar-button {
+  background-color: #23A174;
+  width: 20vw;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Style for the header */
+h2 {
+  text-align: center;
+  color: #333; /* dark grey color for the text */
   margin-bottom: 20px;
 }
 
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columns for 7 days of the week */
-  gap: 5px;
-  justify-content: center;
-  align-items: center;
-}
-
-.day-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
-  width: 50px; /* Adjust the size as per your requirement */
-  height: 50px; /* Adjust the size as per your requirement */
-  border-radius: 25px; /* Makes it circular */
-  background-color: #f0f0f0; /* Default background color */
-  color: #333;
-  font-size: 14px;
-}
-
-.day-cell.diagnosis {
-  background-color: #007bff; /* Background color for dates with diagnosis */
-  color: white; /* Text color for dates with diagnosis */
-}
-
-.day-labels {
-  font-weight: bold;
-  color: #666;
-  padding: 5px;
-}
-
-.view-more-button {
-  background-color: #23A174; /* Green background for the button */
-  color: white; /* White text color */
-  padding: 10px 20px;
-  margin: 20px auto;
-  font-size: 16px;
-  border: none;
-  border-radius: 20px; /* Rounded corners for the button */
+/* Hover effect for day cells */
+.day-cell:hover:not(.empty-cell) {
+  background-color: #0056b3; /* darker blue on hover */
+  color: white;
   cursor: pointer;
-  display: block; /* Center the button */
-  width: 70%; /* Set the width of the button */
-  max-width: 300px; /* Maximum width */
 }
 
-.view-more-button:hover {
-  background-color: #45a049; /* Darker shade on hover */
+.month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-navigation button {
+  padding: 10px;
+  margin: 0 20px;
+  background-color: #23A174;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.month-navigation button:hover {
+  background-color: #23A174;
 }

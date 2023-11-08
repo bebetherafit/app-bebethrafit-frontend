@@ -24,7 +24,7 @@ const DiagnosisListPage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="diagnosis-container">
       {diagnoses.map((diagnosis) => (
         <div
           key={diagnosis.id}
