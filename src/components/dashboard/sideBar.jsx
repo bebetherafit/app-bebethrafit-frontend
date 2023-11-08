@@ -11,7 +11,7 @@ import { ReactComponent as AnalysisReportIcon } from '../../assets/icons/dashboa
 import Tooltip from '../Tooltips';
 
 
-const Sidebar = () => {
+const Sidebar = ({onMenuClick}) => {
     const { user } = useContext(UserContext);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -44,13 +44,13 @@ const Sidebar = () => {
             <div className="sidebarMenus">
                 <ul>
                     <li>
-                        <Link to="/dashboard" className='sideMenuList'>
+                        <Link to="/dashboard" className='sideMenuList' onClick={() => onMenuClick('report')}>
                             <AnalysisReportIcon width={20} height={20} alt="analysis report" />
                             분석 리포트
                         </Link>
                     </li>
                     <li>
-                        <Link to="" className='sideMenuList'>
+                        <Link to="/dashboard" className='sideMenuList'onClick={() => onMenuClick('workout')}>
                             <FitnessLogIcon width={20} height={20} alt='fitness log' />
                             맞춤 성장 운동 기록
                         </Link>
