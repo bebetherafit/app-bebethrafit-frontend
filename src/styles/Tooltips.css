@@ -1,0 +1,40 @@
+/* Tooltip.css #23A174*/
+/* Tooltip.css */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  min-width: 150px; /* 최소 가로 길이 */
+  max-width: 300px; /* 최대 가로 길이, 필요에 따라 조정 */
+  background-color: #23A174; /* 흰색 배경 */
+  color: #fff; /* 회색 텍스트 */
+  text-align: center;
+  border-radius: 4px; /* 둥근 모서리 */
+  padding: 8px 16px; /* 세로 패딩은 줄이고 가로 패딩은 늘릴 수 있음 */
+  position: absolute;
+  z-index: 1;
+  bottom: 150%; /* 버튼 위에 툴팁이 위치하도록 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.18); /* 그림자 효과 추가 */
+
+  /* 화살표 스타일 */
+  .tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* 화살표의 위치를 조정 */
+    left: 50%; /* 부모 컨테이너의 중앙 */
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: white transparent transparent transparent; /* 위쪽 화살표 */
+    margin-left: -5px;
+  }
+}
+
+.tooltip-container:hover .tooltip-content {
+  visibility: visible;
+}

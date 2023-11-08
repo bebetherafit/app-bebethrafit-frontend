@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import '../../styles/sidebar.css';
 import profilePic from '../../assets/bebeimg.png';
 import { ReactComponent as CommunityIcon } from '../../assets/icons/chat.svg';
@@ -8,10 +8,12 @@ import { ReactComponent as CustomerServiceIcon } from '../../assets/icons/contac
 import { ReactComponent as FindClinicIcon } from '../../assets/icons/email.svg';
 import { ReactComponent as FitnessLogIcon } from '../../assets/icons/tasks.svg';
 import { ReactComponent as AnalysisReportIcon } from '../../assets/icons/dashboard-active.svg';
+import Tooltip from '../Tooltips';
 
-const Sidebar = () => {
-    const [username, setName] = useState('');
-    const [email, setEmail] = useState('');
+
+const Sidebar = ({onMenuClick}) => {
+    const { user } = useContext(UserContext);
+
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
@@ -25,20 +27,6 @@ const Sidebar = () => {
         };
     }, []);
 
-    useEffect(() => {
-        const token = localStorage.getItem('access_token');
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-
-        axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user', config)
-            .then(response => {
-                setName(response.data.username);
-                setEmail(response.data.email);
-            })
-            .catch(error => console.error(error));
-    }, []);
-
     return (
         <div className={`sidebar ${isMobile ? 'mobile' : ''}`}>
             <div className="sidebarHeader">
@@ -48,42 +36,48 @@ const Sidebar = () => {
                 <div className="sidebarAccountInfo">
                     <img src={profilePic} width={50} alt="user avatar" />
                     <div className='userInfo'>
-                        <p>{username} | 베베센터</p>
-                        <p>{email}</p>
+                        <p>{user.username}</p>
+                        <p>{user.email}</p>
                     </div>
                 </div>
             </div>
             <div className="sidebarMenus">
                 <ul>
                     <li>
-                        <Link to="" className='sideMenuList'>
+                        <Link to="/dashboard" className='sideMenuList' onClick={() => onMenuClick('report')}>
                             <AnalysisReportIcon width={20} height={20} alt="analysis report" />
                             분석 리포트
                         </Link>
                     </li>
                     <li>
-                        <Link to="" className='sideMenuList'>
+                        <Link to="/dashboard" className='sideMenuList'onClick={() => onMenuClick('workout')}>
                             <FitnessLogIcon width={20} height={20} alt='fitness log' />
                             맞춤 성장 운동 기록
                         </Link>
                     </li>
                     <li>
+                    <Tooltip text='준비중입니다.'>
                         <Link to="" className='sideMenuList'>
                             <FindClinicIcon width={20} height={20} alt='find clinic' />
                             센터 찾기
                         </Link>
+                    </Tooltip>
                     </li>
                     <li>
+                        <Tooltip text='준비중입니다.'>
                         <Link to="" className='sideMenuList'>
                             <CustomerServiceIcon width={20} height={20} alt='customer service' />
                             고객센터
                         </Link>
+                        </Tooltip>
                     </li>
                     <li>
+                        <Tooltip text='준비중입니다.'>
                         <Link to="" className='sideMenuList'>
                             <CommunityIcon width={20} height={20} alt='community' />
                             커뮤니티
                         </Link>
+                        </Tooltip>
                     </li>
                 </ul>
             </div>

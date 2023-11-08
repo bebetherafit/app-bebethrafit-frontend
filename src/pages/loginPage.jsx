@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { UserContext } from '../components/UserContext';
 import '../styles/login.css';
 import axios from 'axios';
+import config from '../config.json';
 
+const BACKEND_URL = config.macBackend;
 
 function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
 
@@ -16,6 +19,8 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
 
   // naver login
 
+
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,16 +28,16 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
     const email = event.target.id.value;
     const password = event.target.pw.value;
     try {
-      const response = await axios.post('https://4ed5-1-223-77-28.ngrok-free.app/login', {
+      const response = await axios.post(BACKEND_URL+ '/login', {
         email: email,
         password: password,
       });
       // JWT 토큰 저장
       if (response.data && response.data.access_token) {
         localStorage.setItem('access_token', response.data.access_token);
-        onLoginSuccess(); // 로그인 성공 후 onLoginSuccess 함수 호출
-        // is_admin 값에 따라 관리자 페이지 또는 대시보드로 이동
-        const destination = response.data.is_admin ? '/admin' : '/dashboard';
+        setUser(response.data.user_info); // 로그인한 사용자 정보 저장
+        onLoginSuccess();
+        const destination = response.data.user_info.is_admin ? '/admin' : '/dashboard'; // 관리자인 경우 /admin으로 이동
         navigate(destination);
       }
       else {
@@ -70,7 +75,7 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
             </div>
             |
             <div className="container">
-              <Link to="/dashboard">둘러보기</Link>
+              <Link to="/newbie">둘러보기</Link>
             </div>
           </div>
         </form>

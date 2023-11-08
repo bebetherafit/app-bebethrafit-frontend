@@ -1,0 +1,11 @@
+.dashboard-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.dashboard-pressure-balance{
+    display: flex;
+    flex-direction: row;
+}

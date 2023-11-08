@@ -1,0 +1,61 @@
+
+.container {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+.header {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for 7 days of the week */
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  width: 50px; /* Adjust the size as per your requirement */
+  height: 50px; /* Adjust the size as per your requirement */
+  border-radius: 25px; /* Makes it circular */
+  background-color: #f0f0f0; /* Default background color */
+  color: #333;
+  font-size: 14px;
+}
+
+.day-cell.diagnosis {
+  background-color: #007bff; /* Background color for dates with diagnosis */
+  color: white; /* Text color for dates with diagnosis */
+}
+
+.day-labels {
+  font-weight: bold;
+  color: #666;
+  padding: 5px;
+}
+
+.view-more-button {
+  background-color: #23A174; /* Green background for the button */
+  color: white; /* White text color */
+  padding: 10px 20px;
+  margin: 20px auto;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px; /* Rounded corners for the button */
+  cursor: pointer;
+  display: block; /* Center the button */
+  width: 70%; /* Set the width of the button */
+  max-width: 300px; /* Maximum width */
+}
+
+.view-more-button:hover {
+  background-color: #45a049; /* Darker shade on hover */
+}

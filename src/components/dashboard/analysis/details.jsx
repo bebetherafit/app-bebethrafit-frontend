@@ -1,113 +1,84 @@
-import React, {useState, useEffect} from 'react';
-import axios from  'axios';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../../config.json';
+import '../../../styles/FootPressDetails.css';
 
+const BACKEND_URL = config.macBackend;
+const ProgressBar = ({ value, maxValue, legend = [] }) => {
+    const [width, setWidth] = useState(0);
 
-const ProgressBar = ({ progress }) => {
-    const containerStyles = {
-        height: 30,
-        width: '100%',
-        backgroundColor: "#e0e0de",
-        borderRadius: 5,
-        margin: 50
-    }
-
-    const fillerStyles = {
-        height: '100%',
-        width: `${progress}%`,
-        backgroundColor: "#00adb5",
-        borderRadius: 'inherit',
-        textAlign: 'right'
-    }
-
-    const labelStyles = {
-        padding: 5,
-        color: 'white',
-        fontWeight: 'bold'
-    }
+    useEffect(() => {
+        // 애니메이션을 위한 width 상태를 maxValue에 비례하게 설정합니다.
+        const progressWidth = Math.min(100, Math.max(0, (value / maxValue) * 100));
+        setWidth(progressWidth);
+    }, [value, maxValue]);
 
     return (
-        <div style={containerStyles}>
-            <div style={fillerStyles}>
-                <span style={labelStyles}>{`${progress}%`}</span>
+        <div className="progress-bar-container">
+            <div className="progress-bar" style={{ backgroundColor: '#e0e0de', borderRadius: '5px', height: '20px', position: 'relative' }}>
+                <div className="progress-bar-filler" style={{ width: `${width}%`, backgroundColor: value > 0 ? '#F7685B' : '#2ED47A', height: '100%', borderRadius: 'inherit', transition: 'width 1s ease-out' }}>
+                    <span style={{ padding: '5px', color: 'white', fontWeight: 'bold' }}>{`${value} KPa`}</span>
+                </div>
+                {legend.map((item, index) => (
+                    <div key={index} className="legend-item" style={{ position: 'absolute', top: '100%', left: `${item.percent}%`, transform: 'translateX(-50%)' }}>
+                        {item.label}
+                    </div>
+                ))}
+                <div className="progress-bar-indicator" style={{ position: 'absolute', top: '-10px', left: `${width}%`, transform: 'translateX(-50%)', width: '0', height: '0', borderLeft: '10px solid transparent', borderRight: '10px solid transparent', borderBottom: '10px solid black' }} />
             </div>
         </div>
     );
-}
+};
 
-const FootPressDetails = () => {
-    const [userData, setUserData] = useState(null);
+
+const FootPressDetails = ({title, }) => {
+    const [leftFootData, setLeftFootData] = useState({ total: 0 });
+    const [rightFootData, setRightFootData] = useState({ total: 0 });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // 여기에 실제 API 엔드포인트 URL을 입력하세요.
-                const response = await axios.get('https://4ed5-1-223-77-28.ngrok-free.app/api/user/foot-pressure', {
-                    headers: {
-                        'Authorization': `Bearer YOUR_USER_TOKEN` // 인증 토큰을 추가하세요.
-                    }
-                });
-                setUserData(response.data);
+                const response = await axios.get(`${BACKEND_URL}/api/user/foot-pressure`);
+                if (response.data) {
+                    setLeftFootData(response.data.left || { total: 0});
+                    setRightFootData(response.data.right || { total: 0});
+                }
             } catch (error) {
                 console.error("API 호출 중 오류 발생:", error);
+                // 에러 발생 시 데이터를 0으로 설정
+                setLeftFootData({ total: 10});
+                setRightFootData({ total: 0});
             }
         };
 
         fetchData();
     }, []);
 
-    if (!userData) {
-        return <div style={{fontSize: '2.5em', marginLeft: 'auto', marginRight: 'auto', weight: 'bold' }}>
-            입력된 신체 데이터가 없습니다. <br />
-            아래 메일로 문의 해주세요. <br />
-            </div>; // 데이터 로딩 중일 때의 표시
-    }
-
-    if (!userData.Authorization) {
-        return <div>로그인이 필요합니다.</div>; // 로그인하지 않았을 때의 표시
-    }
-
     return (
-        <div className="Details-container">
-            <div className="TotalPressure">
-            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <h3>총 압력 값</h3>
-                <p style={{weight: 'bold'}}>(Total Pressure)</p>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'row'}}>
-                <ProgressBar progress={60} />
-                <ProgressBar progress={60} />
-            </div>
-            </div>
-            <div className="AveragePressure">
-                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <h3>압력 평균 값</h3>
-                    <p style={{weight: 'bold'}}>(Average Pressure)</p>
+        <div className="details-container">
+            <h4>{title}</h4>
+            <div className="pressure-container">
+                <div className="pressure-section">
+                    <table className="pressure-table">
+                        <th>
+                            <h3>왼발</h3>
+                        </th>
+                        <td>{leftFootData.total || 0} KPa</td>
+                    </table>
+                    <ProgressBar value={leftFootData.area || 0} maxValue={100} legend={[1,2,3]} backgroundColor="#F7685B" />
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <ProgressBar progress={50} />
-                    <ProgressBar progress={60} />
-                </div>
-            </div>
-            <div className="AreaNums">
-                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <h3>면적 수</h3>
-                    <p style={{weight: 'bold'}}>(N/10)</p>
-                </div>
-                <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <ProgressBar progress={60} />
-                    <ProgressBar progress={60} />
-                </div>
-            </div>
-            <div className="ArchAreas">
-                <h3>발 아치 면적</h3>
-                <div style={{display: 'flex', flexDirection: 'row'}}>
-                    <ProgressBar progress={60} />
-                    <ProgressBar progress={60} />
+                <div className="pressure-section">
+                    <table className="pressure-table">
+                        <th>
+                            <h3>오른발</h3>
+                        </th>
+                        <td>{rightFootData.total || 0} KPa</td>
+                    </table>
+                    <ProgressBar value={rightFootData.area || 0} maxValue={100} legend={[1,2,3]} backgroundColor="#2ED47A" />
                 </div>
             </div>
         </div>
     );
 }
-
 
 export default FootPressDetails;

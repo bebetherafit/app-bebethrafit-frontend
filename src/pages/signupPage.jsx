@@ -2,7 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';  // axios 임포트
 // import '../styles/signup.css';
+import config from '../config.json';
 
+const BACKEND_URL = config.macBackend;
 function SignupPage() {
     const navigate = useNavigate();
     const handleSubmit = async (event) => {
@@ -13,7 +15,7 @@ function SignupPage() {
       const password = event.target.pw.value;
 
       try {
-        const response = await axios.post('https://4ed5-1-223-77-28.ngrok-free.app/signup', {
+        const response = await axios.post(BACKEND_URL + '/signup', {
           email: email,  // email로 변경
           username: name,
           password: password
