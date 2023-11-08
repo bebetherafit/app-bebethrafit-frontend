@@ -8,7 +8,7 @@ import { ReactComponent as CustomerServiceIcon } from '../../assets/icons/contac
 import { ReactComponent as FindClinicIcon } from '../../assets/icons/email.svg';
 import { ReactComponent as FitnessLogIcon } from '../../assets/icons/tasks.svg';
 import { ReactComponent as AnalysisReportIcon } from '../../assets/icons/dashboard-active.svg';
-
+import Tooltip from '../Tooltips';
 
 
 const Sidebar = () => {
@@ -44,7 +44,7 @@ const Sidebar = () => {
             <div className="sidebarMenus">
                 <ul>
                     <li>
-                        <Link to="" className='sideMenuList'>
+                        <Link to="/dashboard" className='sideMenuList'>
                             <AnalysisReportIcon width={20} height={20} alt="analysis report" />
                             분석 리포트
                         </Link>
@@ -56,22 +56,28 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
+                    <Tooltip text='준비중입니다.'>
                         <Link to="" className='sideMenuList'>
                             <FindClinicIcon width={20} height={20} alt='find clinic' />
                             센터 찾기
                         </Link>
+                    </Tooltip>
                     </li>
                     <li>
+                        <Tooltip text='준비중입니다.'>
                         <Link to="" className='sideMenuList'>
                             <CustomerServiceIcon width={20} height={20} alt='customer service' />
                             고객센터
                         </Link>
+                        </Tooltip>
                     </li>
                     <li>
+                        <Tooltip text='준비중입니다.'>
                         <Link to="" className='sideMenuList'>
                             <CommunityIcon width={20} height={20} alt='community' />
                             커뮤니티
                         </Link>
+                        </Tooltip>
                     </li>
                 </ul>
             </div>
