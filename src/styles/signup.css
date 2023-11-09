@@ -8,7 +8,7 @@
 
 .signup-page .signup-form input[type="text"],
 .signup-page .signup-form input[type="password"] {
-  width: 50vw;
+  width: 30vw;
   height: 5vh;
   padding: 0.5em;
   margin-bottom: 1em;
@@ -17,7 +17,7 @@
 }
 
 .signup-page .signup-form input[type="submit"] {
-  width: 45vw;
+  width: 25vw;
   height: 5vh;
   border: none;
   border-radius: 4px;
@@ -30,4 +30,17 @@
 
 .signup-page .signup-form input[type="submit"]:hover {
   background-color: darkgreen;
+}
+
+@media (max-width: 768px) {
+  .signup-page .signup-inner {
+    width: 100%;
+  }
+  .signup-page .signup-form input[type="text"],
+  .signup-page .signup-form input[type="password"] {
+    width: 80vw;
+  }
+  .signup-page .signup-form input[type="submit"] {
+    width: 50vw;
+  }
 }

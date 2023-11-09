@@ -23,7 +23,7 @@ function SignupPage() {
   
         if (response.data && response.data.access_token) {  // access_token 확인
           localStorage.setItem('access_token', response.data.access_token);  // 토큰을 로컬 스토리지에 저장
-          navigate('/dashboard');
+          navigate('/intro');
         } else {
           alert('회원 가입 실패');
         }

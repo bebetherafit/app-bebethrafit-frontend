@@ -30,7 +30,7 @@ const Sidebar = ({onMenuClick}) => {
     return (
         <div className={`sidebar ${isMobile ? 'mobile' : ''}`}>
             <div className="sidebarHeader">
-                <h2>나의 분석 리포트</h2>
+                <h2 className="sidebarHeaderTitle">나의 분석 리포트</h2>
             </div>
             <div className="sidebarAccount">
                 <div className="sidebarAccountInfo">
