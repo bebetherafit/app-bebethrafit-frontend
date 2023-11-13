@@ -85,12 +85,16 @@ const MonthlySchedule = () => {
           );
         })}
       </div>
-
-        <div className="view-calendar-button">
-          <Link to='/diagnosis'>
-            클릭한 날짜로 기록 확인하기
-          </Link>
+      {/* 가운데 위치 스타일 */}
+      <div style={{display: 'flex', justifyContent: 'center'}}> 
+       
+        <Link to='/diagnosis'>
+          <div className="view-calendar-button">
+              클릭한 날짜로 기록 확인하기
+          </div>
+        </Link>
         </div>
+
     </div>
   );
 };

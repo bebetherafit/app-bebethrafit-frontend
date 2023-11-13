@@ -3,6 +3,8 @@ import FootPressDistributeAns from '../components/dashboard/analysis/footPressDi
 import Details from '../components/dashboard/analysis/details';
 import BodyBalance from '../components/dashboard/analysis/bodyBalanceAns';
 import PeakPress from '../components/dashboard/analysis/PeakPressure';
+import FootAreaAns from '../components/dashboard/analysis/AreaAnalysis';
+import WeightBalance from '../components/dashboard/analysis/WeightBalance';
 import './dashboard/analysisreport.css';
 
 const AnalysisReport = () => {
@@ -18,6 +20,8 @@ const AnalysisReport = () => {
             </div>
             <div>
             <PeakPress />
+            <FootAreaAns />
+            <WeightBalance />
             </div>
         </div>
     );

@@ -42,7 +42,7 @@ const FootPressDetails = ({title, }) => {
             } catch (error) {
                 console.error("API 호출 중 오류 발생:", error);
                 // 에러 발생 시 데이터를 0으로 설정
-                setLeftFootData({ total: 10});
+                setLeftFootData({ total: 0});
                 setRightFootData({ total: 0});
             }
         };
