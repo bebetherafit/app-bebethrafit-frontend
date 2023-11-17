@@ -35,6 +35,7 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
       // JWT 토큰 저장
       if (response.data && response.data.access_token) {
         localStorage.setItem('access_token', response.data.access_token);
+        console.log(response.data.access_token);
         setUser(response.data.user_info); // 로그인한 사용자 정보 저장
         onLoginSuccess();
         const destination = response.data.user_info.is_admin ? '/admin' : '/dashboard'; // 관리자인 경우 /admin으로 이동

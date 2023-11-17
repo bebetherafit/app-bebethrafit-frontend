@@ -43,16 +43,17 @@ const BodyBalance = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
+                        <tr>
                             <td>{balancePercentage.left}%</td>
                             <td>{balancePercentage.right}%</td>
                         </tr>
+                        <tr style={{borderColor : '#fff', height:'80px'}}>
+                            <td className={`balanceStatus ${balanceColor}`}>{balanceStatus}</td>
+                            <td colSpan="2" style={{borderColor : '#fff'}}> L 5 %</td>
+                        </tr>
                     </tbody>
-                    <tr style={{borderColor : '#fff', height:'80px'}}>
-                        <td className={`balanceStatus ${balanceColor}`}>{balanceStatus}</td>
-                        <td colSpan="2" style={{borderColor : '#fff'}}> L 5 %</td>
-                    </tr>
                 </table>
+
             </div>
         </div>
     );
