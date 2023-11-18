@@ -2,11 +2,8 @@ import React from 'react';
 import footPressIcon from '../../../assets/foot-icon.png';
 import '../../../styles/FootPressDistributeAns.css';
 
-const FootAreaAns = ({ leftFootData, rightFootData }) => {
-    console.log('하위 면적 컴포넌트에서 받는 값:', leftFootData);
-    if(!leftFootData || !rightFootData) {
-        return <div>입력된 정보가 없습니다.</div>;
-    }
+const FootAreaAns = ({ leftFootCell, rightFootCell, leftFootArea, rightFootArea }) => {
+    console.log('하위 면적 컴포넌트에서 받는 값:', leftFootCell, rightFootCell, leftFootArea, rightFootArea);
     return (
         <div className='footPressContainer'>
             <h4>발 면적 분석</h4>
@@ -31,19 +28,19 @@ const FootAreaAns = ({ leftFootData, rightFootData }) => {
                         <tbody>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>발 면적 수</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootData.total} Cell</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootData.total} Cell</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootCell} Cell</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootCell} Cell</td>
                             </tr>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>발 면적</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootData.average}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootData.average}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootArea}㎠</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootArea}㎠</td>
                             </tr>
-                            <tr>
+                            {/* <tr>
                                 <th style={{ verticalAlign: 'middle' }}>발 아치</th>
                                 <td style={{ verticalAlign: 'middle' }}>{leftFootData.average}</td>
                                 <td style={{ verticalAlign: 'middle' }}>{rightFootData.average}</td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

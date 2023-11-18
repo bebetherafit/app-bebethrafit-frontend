@@ -2,7 +2,8 @@ import React from 'react';
 import footPressIcon from '../../../assets/foot-icon.png';
 import '../../../styles/FootPressDistributeAns.css';
 
-const FootPressDistributeAns = ({ leftFootPeak, rightFootPeak }) => {
+const FootPressDistributeAns = ({ leftFootPeak, rightFootPeak, leftFootPeakLoc, rightFootPeakLoc }) => {
+    console.log('leftFootPeak:', leftFootPeak);
     if(!leftFootPeak || !rightFootPeak) {
         return <div> 발 최대 압력에 대한 입력된 정보가 없습니다.</div>;
     }
@@ -30,13 +31,13 @@ const FootPressDistributeAns = ({ leftFootPeak, rightFootPeak }) => {
                         <tbody>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>발 최고 압력값 (kPa)</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeak.value}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeak.value}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeak} kPa</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeak} kPa</td>
                             </tr>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>발 최고 압력 위치</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeak.location}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeak.location}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeakLoc}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeakLoc}</td>
                             </tr>
                         </tbody>
                     </table>

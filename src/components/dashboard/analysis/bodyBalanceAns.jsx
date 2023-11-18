@@ -3,15 +3,16 @@ import bodyBalanceImg from '../../../assets/human-icon.png';
 import '../../../styles/BodyBalance.css';
 
 const BodyBalance = ({ leftBalance, rightBalance }) => {
+    console.log('leftBalance:', leftBalance);
+    console.log('rightBalance:', rightBalance);
+
     const left = leftBalance || { left: 0 };
     const right = rightBalance || { right: 0 };
 
     const balancePercentage = {
-        left: (left.left * 100).toFixed(2),
-        right: (right.right * 100).toFixed(2),
+        left: (left.left * 100),
+        right: (right.right * 100),
     };
-    console.log('leftBalance:', leftBalance);
-    console.log('rightBalance:', rightBalance);
     const imbalance = balancePercentage.left - balancePercentage.right;
     const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '왼쪽 \n 불균형' : '오른쪽 \n 불균형');
     const balanceColor = imbalance === 0 ? 'green' : 'red';

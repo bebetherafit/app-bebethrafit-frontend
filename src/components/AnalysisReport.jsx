@@ -12,8 +12,8 @@ import axios from 'axios';
 
 const BACKEND_URL = config.macBackend;
 const AnalysisReport = () => {
-    const [leftFoot, setLeftFoot] = useState({ total: 0, average: 0, area: 0, imbalance: 0 });
-    const [rightFoot, setRightFoot] = useState({ total: 0, average: 0, area: 0, imbalance: 0 });
+    const [leftFoot, setLeftFoot] = useState({ total: 0, average: 0, area: 0, imbalance: 0, cell: 0, peak: 0, peak_loc: null });
+    const [rightFoot, setRightFoot] = useState({ total: 0, average: 0, area: 0, imbalance: 0, cell: 0, peak: 0, peak_loc: null });
     // 데이터 형식변환
     const safeToFixed = (value, digits) => {
         if (typeof value === 'number') {
@@ -46,20 +46,26 @@ const AnalysisReport = () => {
                 console.log("오른발 총압력값 :",response.data[0].right_foot_total_pressure);
                 console.log("오른발 평균압력값 :",response.data[0].right_foot_average_pressure);
                 console.log("오른발 면적 :",response.data[0].right_foot_area);
-                console.log("왼발 균형 값 :", response.data[0].left_foot_imbalance);
-                console.log("오른발 균형 값 :", response.data[0].right_foot_imbalance);
+                console.log("왼발 균형 값 :", response.data[0].left_body_balance);
+                console.log("오른발 균형 값 :", response.data[0].right_body_balance);
                 setLeftFoot({
                     total: safeToFixed(response.data[0].left_foot_total_pressure, 2),
                     average: safeToFixed(response.data[0].left_foot_average_pressure, 2),
                     area: safeToFixed(response.data[0].left_foot_area, 2),
-                    imbalance: safeToFixed(response.data[0].left_foot_imbalance, 2),
+                    imbalance: safeToFixed(response.data[0].left_body_balance, 2),
+                    peak : safeToFixed(response.data[0].left_foot_peak_pressure, 2),
+                    peak_loc : response.data[0].left_foot_peak_location,
+                    cell : response.data[0].left_foot_cell_count,
+
                 });
-                
                 setRightFoot({
                     total: safeToFixed(response.data[0].right_foot_total_pressure, 2),
                     average: safeToFixed(response.data[0].right_foot_average_pressure, 2),
                     area: safeToFixed(response.data[0].right_foot_area, 2),
-                    imbalance: safeToFixed(response.data[0].right_foot_imbalance, 2),
+                    imbalance: safeToFixed(response.data[0].right_body_balance, 2),
+                    peak : safeToFixed(response.data[0].right_foot_peak_pressure, 2),
+                    peak_loc : response.data[0].right_foot_peak_location,
+                    cell : response.data[0].right_foot_cell_count,
                 });
             } catch (error) {
                 console.error('발 압력 데이터를 가져오는데 실패했습니다:', error);
@@ -68,8 +74,8 @@ const AnalysisReport = () => {
         fetchFootPressData();
     }
     , []);
-
-    console.log("업데이트확인 :", leftFoot, rightFoot)
+    console.log("After Imbalance :", leftFoot.imbalance, rightFoot.imbalance);
+    console.log("After cell :", leftFoot.cell, rightFoot.cell); 
     return (
         <div className="dashboard-contents">
             <div className="dashboard-pressure-balance">
@@ -82,8 +88,8 @@ const AnalysisReport = () => {
                     rightFootArea={rightFoot.area}
                 />
                 <BodyBalance
-                    leftFootImbalance={leftFoot.imbalance}
-                    rightFootImbalance={rightFoot.imbalance}
+                    leftbalance={leftFoot.imbalance} // 값이 출력되지 않음
+                    rightbalance={rightFoot.imbalance}
                 />
             </div>
             <div>
@@ -100,9 +106,17 @@ const AnalysisReport = () => {
             </div>
             <div>
                 <PeakPress
+                leftFootPeak={leftFoot.peak}
+                rightFootPeak={rightFoot.peak}
+                leftFootPeakLoc={leftFoot.peak_loc}
+                rightFootPeakLoc={rightFoot.peak_loc}  
 
                 />
                 <FootAreaAns
+                leftFootArea={leftFoot.area}
+                rightFootArea={rightFoot.area}
+                leftFootCell={leftFoot.cell}
+                rightFootCell={rightFoot.cell}
 
                 />
                 <WeightBalance />
