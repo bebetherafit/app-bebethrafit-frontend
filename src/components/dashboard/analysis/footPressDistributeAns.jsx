@@ -2,7 +2,12 @@ import React from 'react';
 import footPressIcon from '../../../assets/foot-icon.png';
 import '../../../styles/FootPressDistributeAns.css';
 
-const FootPressDistributeAns = ({ leftFootPress, rightFootPress }) => {
+const FootPressDistributeAns = ({ leftFootPress, leftFootAverage, leftFootArea, rightFootPress, rightFootAverage, rightFootArea, }) => {
+    console.log('leftFootPress:', leftFootPress);
+    console.log('leftFootAverage:', leftFootAverage);
+    console.log('leftFootArea:', leftFootArea);
+
+
     return (
         <div className='footPressContainer'>
             <h4>발 압력 분포 분석</h4>
@@ -27,18 +32,18 @@ const FootPressDistributeAns = ({ leftFootPress, rightFootPress }) => {
                         <tbody>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>총 압력 값 (kPa)</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootPress.total}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootPress.total}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootPress}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootPress}</td>
                             </tr>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>압력 평균 값 (kPa)</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootPress.average}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootPress.average}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootAverage}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootAverage}</td>
                             </tr>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>면적 수 (㎠)</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootPress.area}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootPress.area}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootArea}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootArea}</td>
                             </tr>
                         </tbody>
                     </table>

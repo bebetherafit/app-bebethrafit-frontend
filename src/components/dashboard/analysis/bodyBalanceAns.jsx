@@ -1,35 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import bodyBalanceImg from '../../../assets/human-icon.png';
-import config from '../../../config.json';
-import '../../../styles/BodyBalance.css'; // CSS 모듈 임포트
+import '../../../styles/BodyBalance.css';
 
-const BACKEND_URL = config.macBackend;
-
-const BodyBalance = () => {
-    const [balanceData, setBalanceData] = useState({ left: 0, right: 0 });
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await axios.get(`${BACKEND_URL}/api/balance`);
-                setBalanceData(result.data || { left: 0, right: 0 });
-            } catch (error) {
-                console.error('Error fetching balance data:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
+const BodyBalance = ({ leftBalance, rightBalance }) => {
+    const left = leftBalance || { left: 0 };
+    const right = rightBalance || { right: 0 };
 
     const balancePercentage = {
-        left: (balanceData.left * 100).toFixed(2),
-        right: (balanceData.right * 100).toFixed(2),
+        left: (left.left * 100).toFixed(2),
+        right: (right.right * 100).toFixed(2),
     };
+    console.log('leftBalance:', leftBalance);
+    console.log('rightBalance:', rightBalance);
     const imbalance = balancePercentage.left - balancePercentage.right;
-    const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '왼쪽 불균형' : '오른쪽 불균형');
+    const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '왼쪽 \n 불균형' : '오른쪽 \n 불균형');
     const balanceColor = imbalance === 0 ? 'green' : 'red';
-
     return (
         <div className='bodyBalanceContainer'>
             <h4>신체 균형 분석</h4>
@@ -49,7 +34,7 @@ const BodyBalance = () => {
                         </tr>
                         <tr style={{borderColor : '#fff', height:'80px'}}>
                             <td className={`balanceStatus ${balanceColor}`}>{balanceStatus}</td>
-                            <td colSpan="2" style={{borderColor : '#fff'}}> L 5 %</td>
+                            <td colSpan="2" style={{borderColor : '#fff'}}>{imbalance}%</td>
                         </tr>
                     </tbody>
                 </table>

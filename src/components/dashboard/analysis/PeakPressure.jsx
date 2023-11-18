@@ -30,13 +30,13 @@ const FootPressDistributeAns = ({ leftFootPeak, rightFootPeak }) => {
                         <tbody>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>발 최고 압력값 (kPa)</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeak.total}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeak.total}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeak.value}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeak.value}</td>
                             </tr>
                             <tr>
                                 <th style={{ verticalAlign: 'middle' }}>발 최고 압력 위치</th>
-                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeak.average}</td>
-                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeak.average}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{leftFootPeak.location}</td>
+                                <td style={{ verticalAlign: 'middle' }}>{rightFootPeak.location}</td>
                             </tr>
                         </tbody>
                     </table>
