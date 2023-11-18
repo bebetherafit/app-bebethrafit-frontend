@@ -32,15 +32,26 @@ const AnalysisReport = () => {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                // 데이터 로드 확인
+                console.log("id :",response.data[0].id);
+                console.log("왼발 총압력값 :",response.data[0].left_foot_total_pressure);
+                console.log("왼발 평균압력값 :",response.data[0].left_foot_average_pressure);
+                console.log("왼발 면적 :",response.data[0].left_foot_area);
+                console.log("오른발 총압력값 :",response.data[0].right_foot_total_pressure);
+                console.log("오른발 평균압력값 :",response.data[0].right_foot_average_pressure);
+                console.log("오른발 면적 :",response.data[0].right_foot_area);
+                console.log("왼발 최대압력값 :",response.data[0].left_foot_peak_pressure);
+                console.log("오른발 최대압력값 :",response.data[0].right_foot_peak_pressure);
+
                 setLeftFootPress({
-                    total: response.data.leftFootPress.total || 0,
-                    average: response.data.leftFootPress.average || 0,
-                    area: response.data.leftFootPress.area || 0,
+                    total: response.data[0].left_foot_total_pressure || 0,
+                    average: response.data[0].left_foot_average_pressure || 0,
+                    area: response.data[0].left_foot_area || 0,
                 });
                 setRightFootPress({
-                    total: response.data.rightFootPress.total || 0,
-                    average: response.data.rightFootPress.average || 0,
-                    area: response.data.rightFootPress.area || 0,
+                    total: response.data[0].right_foot_total_pressure || 0,
+                    average: response.data[0].right_foot_average_pressure || 0,
+                    area: response.data[0].right_foot_area || 0,
                 });
             } catch (error) {
                 console.error('발 압력 데이터를 가져오는데 실패했습니다:', error);
