@@ -5,7 +5,7 @@ import DashBoardHeader from '../components/dashboard/dashBoardHeader';
 import '../styles/dashboard.css';
 import Calendar from '../components/Calender';
 import AnalysisReport from '../components/AnalysisReport';
-import WorkoutLog from './WorkoutLog';
+import WorkoutLog from './workoutlog';
 
 const Dashboard = () => {
     const [activeContent, setActiveContent] = useState('workout');
