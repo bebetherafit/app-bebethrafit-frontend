@@ -22,13 +22,14 @@ const ExerciseList = () => {
                   alert('인증시간이 만료되었습니다.');
                   return;
               }
-              const response = await axios.get(BACKEND_URL + '/api/workout', {
+              const response = await axios.get(BACKEND_URL + '/api/analysis/bmi', {
                   headers: {
                       Authorization: `Bearer ${token}`
                   }
               });
               localStorage.setItem('token', response.data.access_token);
               setExercises(response.data);
+              console.log("오늘의 추천 운동 데이터 :", response.data);
           } catch (error) {
               console.error("API 호출 중 오류 발생:", error);
               setExercises([]);
@@ -50,23 +51,23 @@ const ExerciseList = () => {
       return <h2>오늘의 추천 운동이 없습니다</h2>;
   }
 
-  // return (
-  //     <div>
-  //         <h2>오늘의 운동 체크리스트</h2>
-  //         {/* {exercises.map((exercise) => (
-  //             <div key={exercise.id}>
-  //                 <label>
-  //                     <input
-  //                         type="checkbox"
-  //                         checked={!!completedExercises[exercise.id]}
-  //                         onChange={() => handleCheckboxChange(exercise.id)}
-  //                     />
-  //                     {exercise.name}
-  //                 </label>
-  //             </div>
-  //         ))} */}
-  //     </div>
-  // );
+  return (
+      <div>
+          <h2>오늘의 운동 체크리스트</h2>
+          {/* {exercises.map((exercise) => (
+              <div key={exercise.id}>
+                  <label>
+                      <input
+                          type="checkbox"
+                          checked={!!completedExercises[exercise.id]}
+                          onChange={() => handleCheckboxChange(exercise.id)}
+                      />
+                      {exercise.name}
+                  </label>
+              </div>
+          ))} */}
+      </div>
+  );
 };
 
 
@@ -79,7 +80,9 @@ function WorkoutLog () {
                 <div className="BodyGrowthAnalysis">
                     <FootType />
                     <BodyBalance />
-                    <ObesityIndex />
+                    <ObesityIndex 
+                        obesityValue={0}
+                    />
                 </div>
             </div>
             <div className="GrowthWorkOutContainer">

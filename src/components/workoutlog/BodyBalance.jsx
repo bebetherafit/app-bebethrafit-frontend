@@ -4,8 +4,10 @@ import './styles/commons.css';
 
 function BodyBalance () {
     return (
-        <div className="container">
-            신체 균형도 
+        <div className="bodybalance-container container">
+
+            <h3 className="bodybalance-header header">신체 균형도</h3> 
+            <h3 className="bodybalance-value value">"정보 없음"</h3>
         </div>
       );
     }
