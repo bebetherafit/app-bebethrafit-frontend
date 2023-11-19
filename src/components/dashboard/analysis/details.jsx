@@ -28,7 +28,7 @@ const FootPressDetails = ({ title, leftFootData, rightFootData }) => {
                     <table className="pressure-table">
                         <thead>
                             <tr>
-                                <th>왼발</th> {/* Left foot title */}
+                                <th>왼발</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,7 +43,7 @@ const FootPressDetails = ({ title, leftFootData, rightFootData }) => {
                     <table className="pressure-table right-foot-table">
                         <thead>
                             <tr>
-                                <th>오른발</th> {/* Right foot title */}
+                                <th>오른발</th>
                             </tr>
                         </thead>
                         <tbody>
