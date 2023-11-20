@@ -5,7 +5,7 @@ import DetailsAvg from '../components/dashboard/analysis/details';
 import BodyBalance from '../components/dashboard/analysis/bodyBalanceAns';
 import PeakPress from '../components/dashboard/analysis/PeakPressure';
 import FootAreaAns from '../components/dashboard/analysis/AreaAnalysis';
-import WeightBalance from '../components/dashboard/analysis/WeightBalance';
+// import WeightBalance from '../components/dashboard/analysis/WeightBalance';
 import './dashboard/analysisreport.css';
 import config from '../config.json';
 import axios from 'axios';
@@ -121,7 +121,7 @@ const AnalysisReport = () => {
                 rightFootCell={rightFoot.cell}
 
                 />
-                <WeightBalance />
+                {/* <WeightBalance /> */}
             </div>
         </div>
     );
