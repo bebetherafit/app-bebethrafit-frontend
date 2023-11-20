@@ -22,6 +22,7 @@ const Calendar = () => {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setDiagnosisDates(response.data.map(item => new Date(item.diagnostic_date)));
+                console.log("날짜 데이터:", response.data)
             } catch (error) {
                 console.error("API 호출 중 오류 발생:", error);
             }
