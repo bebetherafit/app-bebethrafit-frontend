@@ -37,7 +37,7 @@ const FootPressDetails = ({ title, leftFootData, rightFootData }) => {
                             </tr>
                         </tbody>
                     </table>
-                    <ProgressBar value={leftFootData} maxValue={500} />
+                    <ProgressBar value={leftFootData} maxValue={1000} />
                 </div>
                 <div className="pressure-section">
                     <table className="pressure-table right-foot-table">
@@ -52,7 +52,7 @@ const FootPressDetails = ({ title, leftFootData, rightFootData }) => {
                             </tr>
                         </tbody>
                     </table>
-                    <ProgressBar value={rightFootData} maxValue={500} />
+                    <ProgressBar value={rightFootData} maxValue={1000} />
                 </div>
             </div>
         </div>
