@@ -35,7 +35,9 @@ const AnalysisReport = () => {
                 }
                 const response = await axios.get(BACKEND_URL + '/api/diagnostic-data', {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': `application/json`,
+                        'ngrok-skip-browser-warning': '69420',
                     }
                 });
                 // 데이터 로드 확인
