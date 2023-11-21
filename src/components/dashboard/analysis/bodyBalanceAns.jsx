@@ -9,8 +9,8 @@ const BodyBalance = ({ leftBalance, rightBalance }) => {
     const left = leftBalance || 0;
     const right = rightBalance || 0;
     
-    const imbalance = left - right;
-    const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '왼쪽 \\n 불균형' : '오른쪽 불균형');
+    const imbalance = (left - right).toFixed(2);
+    const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '불균형' : '불균형');
     const balanceColor = imbalance === 0 ? 'green' : 'red';
     return (
         <div className='bodyBalanceContainer'>
