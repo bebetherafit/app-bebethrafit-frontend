@@ -6,9 +6,9 @@ const BodyBalance = ({ leftBalance, rightBalance }) => {
     console.log('leftBalance:', leftBalance);
     console.log('rightBalance:', rightBalance);
 
-    const left = leftBalance || { left: 0 };
-    const right = rightBalance || { right: 0 };
-
+    const left = leftBalance || 0;
+    const right = rightBalance || 0;
+    
     const imbalance = left - right;
     const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '왼쪽 \\n 불균형' : '오른쪽 불균형');
     const balanceColor = imbalance === 0 ? 'green' : 'red';
