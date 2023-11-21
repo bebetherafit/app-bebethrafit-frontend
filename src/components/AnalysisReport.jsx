@@ -90,8 +90,8 @@ const AnalysisReport = () => {
                     rightFootArea={rightFoot.area}
                 />
                 <BodyBalance
-                    leftbalance={leftFoot.imbalance} // 값이 출력되지 않음
-                    rightbalance={rightFoot.imbalance}
+                    leftBalance={leftFoot.imbalance} // 값이 출력되지 않음
+                    rightBalance={rightFoot.imbalance}
                 />
             </div>
             <div>

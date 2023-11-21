@@ -9,12 +9,8 @@ const BodyBalance = ({ leftBalance, rightBalance }) => {
     const left = leftBalance || { left: 0 };
     const right = rightBalance || { right: 0 };
 
-    const balancePercentage = {
-        left: (left.left * 100),
-        right: (right.right * 100),
-    };
-    const imbalance = balancePercentage.left - balancePercentage.right;
-    const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '왼쪽 \n 불균형' : '오른쪽 \n 불균형');
+    const imbalance = left - right;
+    const balanceStatus = imbalance === 0 ? '균형' : (imbalance > 0 ? '왼쪽 \\n 불균형' : '오른쪽 불균형');
     const balanceColor = imbalance === 0 ? 'green' : 'red';
     return (
         <div className='bodyBalanceContainer'>
@@ -30,8 +26,8 @@ const BodyBalance = ({ leftBalance, rightBalance }) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{balancePercentage.left}%</td>
-                            <td>{balancePercentage.right}%</td>
+                            <td>{left}%</td>
+                            <td>{right}%</td>
                         </tr>
                         <tr style={{borderColor : '#fff', height:'80px'}}>
                             <td className={`balanceStatus ${balanceColor}`}>{balanceStatus}</td>
