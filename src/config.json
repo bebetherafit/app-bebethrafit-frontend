@@ -1,4 +1,4 @@
 {
-    "macBackend": "https://b863-1-223-77-27.ngrok-free.app",
-    "macBackend-local": "http://127.0.0.1:8000" 
+    "macBackend-ngork": "https://b863-1-223-77-27.ngrok-free.app",
+    "macBackend": "http://127.0.0.1:8000" 
 }

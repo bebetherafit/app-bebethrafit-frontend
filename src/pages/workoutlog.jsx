@@ -10,6 +10,7 @@ const BACKEND_URL = config.macBackend;
 const ExerciseList = () => {
   const [exercises, setExercises] = useState([]);
   // const [completedExercises, setCompletedExercises] = useState({});
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -54,18 +55,7 @@ const ExerciseList = () => {
   return (
       <div>
           <h2>오늘의 운동 체크리스트</h2>
-          {/* {exercises.map((exercise) => (
-              <div key={exercise.id}>
-                  <label>
-                      <input
-                          type="checkbox"
-                          checked={!!completedExercises[exercise.id]}
-                          onChange={() => handleCheckboxChange(exercise.id)}
-                      />
-                      {exercise.name}
-                  </label>
-              </div>
-          ))} */}
+
       </div>
   );
 };
@@ -73,21 +63,20 @@ const ExerciseList = () => {
 
 // WorkoutLog component
 function WorkoutLog () {
-    return (
+    return ( 
         <div className="dashboard-content">
             <div className="BodyGrowthAnalysisContainer">
                 <h1>금쪽이 신체 성장 종합 분석</h1>
                 <div className="BodyGrowthAnalysis">
-                    <FootType />
-                    <BodyBalance />
                     <ObesityIndex 
                         obesityValue={0}
                     />
+                    <FootType />
+                    <BodyBalance />
                 </div>
             </div>
             <div className="GrowthWorkOutContainer">
                 <h1>올바른 성장 습관 운동 리스트</h1>
-                {/* Here we include the ExerciseList component */}
                 <ExerciseList />
             </div>
         </div>

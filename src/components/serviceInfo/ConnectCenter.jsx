@@ -9,7 +9,7 @@ function LandingPage() {
   const navigate = useNavigate();
   const handleClick = () => {
     if (localStorage.getItem('access_token')) {
-      navigate('/dashboard');
+      navigate('/newbie');
     } else {
       navigate('/login');
     }

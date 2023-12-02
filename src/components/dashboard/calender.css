@@ -26,10 +26,6 @@ table {
   border-collapse: collapse;
 }
 
-.calendar-container > table, thead, tbody, th, td, tr {
-  border-color: #ffffff;
-}
-
 thead th, tbody td {
   text-align: center;
 }
@@ -37,11 +33,12 @@ thead th, tbody td {
 thead th {
   background-color: white;
   padding: 10px 0;
+  border: #fff;
 }
 
 tbody td {
   padding: 15px 0;
-  border-bottom: 1px solid #dddddd;
+  border: 1px solid #fff;
 }
 
 tbody td:hover {
@@ -49,5 +46,8 @@ tbody td:hover {
 }
 
 .current-day {
-  color: #007bff;
+  /* 원형으로 배경색 칠하기 */
+  background-color: #007bff;
+  border-radius: 50%;
+  color: #fff;
 }

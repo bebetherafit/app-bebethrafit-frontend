@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/NewbieDataForm.css';
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+import config from '../config.json';
+const BACKEND_URL = config.macBackend;
 const UserInfoInputPage = () => {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
@@ -37,7 +38,7 @@ const UserInfoInputPage = () => {
 
   return (
     <div className="user-info-input-page">
-      <h1>아이에 대해서 알려주세요</h1>
+      <h1 className='title'>아이에 대해서 알려주세요</h1>
       <p>맞춤 신체 분석을 추천해드립니다.</p>
       <form onSubmit={handleSubmit}>
         <div>
@@ -48,7 +49,7 @@ const UserInfoInputPage = () => {
             value={userInfo.nickname}
             onChange={handleInputChange}
           />
-        </div>
+        </div> 
         <div>
           <label>생년월일</label>
           <input
