@@ -24,7 +24,9 @@ function WorkoutLog() {
                 }
                 const response = await axios.get(BACKEND_URL + '/api/analysis/bmi', {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning': '69420'
                     }
                 });
                 setBmi(response.data);
