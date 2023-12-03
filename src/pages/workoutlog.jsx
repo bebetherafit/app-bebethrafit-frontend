@@ -54,7 +54,7 @@ function WorkoutLog() {
     }
 
     if (!isLoading && bmi === 0) {
-        return <h2>오늘의 추천 운동이 없습니다</h2>;
+        return <h2>정보가 없습니다. <br />센터로 문의 해주세요</h2>;
     }
 
     return ( 
