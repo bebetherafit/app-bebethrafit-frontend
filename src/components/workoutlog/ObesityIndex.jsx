@@ -27,7 +27,7 @@ function ObesityIndex({ obesityValue }) {
     return (
         <div className="bmi-container container">
             <h3 className="bmi-title header">비만도 지수</h3>
-            <h3 className="bmi-value value">{obesityValue}</h3>
+            <h3 className="bmi-value value">{obesityScale(obesityValue)}</h3>
         </div>
     );
 }
