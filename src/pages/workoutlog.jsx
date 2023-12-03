@@ -11,6 +11,7 @@ const BACKEND_URL = config.macBackend;
 // WorkoutLog 컴포넌트
 function WorkoutLog() {
     const [bmi, setBmi] = useState(0);
+    const [balance, setBalance] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -30,6 +31,14 @@ function WorkoutLog() {
                     }
                 });
                 setBmi(response.data);
+                const bal_response = await axios.get(BACKEND_URL + '/api/diagnostic-data', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': `application/json`,
+                        'ngrok-skip-browser-warning': '69420',
+                    }
+                });
+                setBalance(bal_response.data[0].left_body_balance - bal_response.data[0].right_body_balance);
             } catch (error) {
                 console.error("BMI 데이터 호출 중 오류 발생:", error);
                 setBmi(0);
@@ -55,7 +64,7 @@ function WorkoutLog() {
                 <div className="BodyGrowthAnalysis">
                     <ObesityIndex obesityValue={bmi} />
                     <FootType />
-                    <BodyBalance />
+                    <BodyBalance BodyBalanceValue = {balance} />
                 </div>
             </div>
         </div>
