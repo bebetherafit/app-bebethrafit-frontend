@@ -9,6 +9,7 @@ import AdminPage from './pages/adminPage';
 import UserInfoInput from './pages/NewbieDataForm';
 import Diagnosis from './pages/DiagnosticList';
 import MonthlySchedule from './pages/MonthlySchedule';
+import Survey from './pages/InfoSurvey';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);  // 상태와 상태 설정 함수
@@ -38,6 +39,7 @@ function App() {
         <Route path='newbie' element={<UserInfoInput />} />
         <Route path='diagnosis' element={<Diagnosis />} />
         <Route path='monthly-schedule' element={<MonthlySchedule />} />
+        <Route path='survey' element={<Survey />} />
       </Routes>
     </Router>
   );
