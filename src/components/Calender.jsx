@@ -7,8 +7,10 @@ import config from "../config";
 const BACKEND_URL = config.macBackend;
 const Calendar = () => {
     const [date] = useState(new Date());
-    const [diagnosisDates, setDiagnosisDates] = useState([]);
-    const [days, setDays] = useState([]);
+    // 현재 날짜를 yyyy-mm-dd 형식으로 초기화
+    const currentDateFormatted = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    const [diagnosisDates, setDiagnosisDates] = useState([currentDateFormatted]);
+    // const [days, setDays] = useState([]);
 
     useEffect(() => {
         const fetchDiagnosisDates = async () => {
@@ -19,17 +21,25 @@ const Calendar = () => {
             }
             try {
                 const response = await axios.get(`${BACKEND_URL}/api/diagnostic-data`, {
-                    headers: { Authorization: `Bearer ${token}` }
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': `application/json`,
+                        'ngrok-skip-browser-warning': '69420',
+                    }
                 });
-                setDiagnosisDates(response.data.map(item => new Date(item.diagnostic_date)));
-                console.log("날짜 데이터:", response.data)
+                // Date 객체로 변환
+                const diagnosticDate = new Date(response.data[0].diagnostic_date);
+                // 날짜를 yyyy-mm-dd 형식으로 변환
+                const formattedDate = `${diagnosticDate.getFullYear()}-${(diagnosticDate.getMonth() + 1).toString().padStart(2, '0')}-${diagnosticDate.getDate().toString().padStart(2, '0')}`;
+                setDiagnosisDates([formattedDate]);
+
+                console.log("날짜 데이터:", formattedDate)
             } catch (error) {
                 console.error("API 호출 중 오류 발생:", error);
             }
         };
         fetchDiagnosisDates();
     }, []);
-
     useEffect(() => {
         const startOfWeek = getStartOfWeek(date);
         const endOfWeek = new Date(startOfWeek);
@@ -40,7 +50,7 @@ const Calendar = () => {
             daysArray.push(new Date(day));
         }
 
-        setDays(daysArray);
+        // setDays(daysArray);
     }, [date]);
 
     const getStartOfWeek = (date) => {
@@ -49,33 +59,31 @@ const Calendar = () => {
         return new Date(dateCopy.setDate(diff));
     };
 
-    const isDiagnosticDate = (day) => {
-        return diagnosisDates.some(diagnosisDate => {
-            // Check if diagnosisDate is a Date object
-            if (diagnosisDate instanceof Date) {
-                return diagnosisDate.toDateString() === day.toDateString();
-            }
-            return false;
-        });
-    };
-    
-
-    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    // const isDiagnosticDate = (day) => {
+    //     // 현재 날짜를 yyyy-mm-dd 형식으로 포맷
+    //     const currentFormattedDate = `${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')}`;
+    //     return diagnosisDates.some(diagnosisDate => {
+    //         const diagnosisDateObj = new Date(diagnosisDate);
+    //         return diagnosisDateObj.toDateString() === day.toDateString();
+    //     }) || currentFormattedDate === `${day.getFullYear()}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${day.getDate().toString().padStart(2, '0')}`;
+    // };
+    // const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     return (
         <div className="calendar-container">
             <div className="calendar-header">
-                <h4>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'long' }).format(date) + " 측정일"}</h4>
+                <h2>{diagnosisDates[0] + " 측정결과"}</h2>
                 <Link to='/diagnosis'>날짜 더보기</Link>
             </div>
             <table>
-                <thead>
+                {/* <thead>
                     <tr>
                         {weekdays.map((day, index) => (
                             <th key={index}>{day}</th>
                         ))}
                     </tr>
-                </thead>
-                <tbody>
+                </thead> */}
+                {/* 최신날짜 표시 코드 */}
+                {/* <tbody>
                     <tr>
                         {days.map((day, index) => (
                             <td
@@ -86,7 +94,7 @@ const Calendar = () => {
                             </td>
                         ))}
                     </tr>
-                </tbody>
+                </tbody> */}
             </table>
         </div>
     );

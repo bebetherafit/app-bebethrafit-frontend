@@ -52,6 +52,8 @@ function LoginPage({ onLoginSuccess }) { // onLoginSuccess prop 추가
   }
   return (
     <div className="inner">
+      <h1 style={{color :"red"}}> 서버 이전 및 업데이트 작업 중 입니다. (2023.12.08 ~ 2023.12.12)</h1>
+      <h2 style={{color: "red"}}>이용에 불편을 드려 죄송합니다.</h2>
       <div className="bebemain"></div>
       <div className="login">
         <form onSubmit={handleSubmit}>
