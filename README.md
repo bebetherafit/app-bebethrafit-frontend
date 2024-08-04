@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+## Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+First, run the development server:
 
-## Available Scripts
+```bash
+npm run dev
+```
 
-In the project directory, you can run:
+# 베베테라핏 프로젝트 컴포넌트 구조
 
-### `npm start`
+## Atoms (원자 단위 컴포넌트)
+1. Button
+   - 파일 위치: `app/components/atoms/Button.tsx`
+   - 설명: 재사용 가능한 버튼 컴포넌트
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. Input
+   - 파일 위치: `app/components/atoms/Input.tsx`
+   - 설명: 재사용 가능한 입력 필드 컴포넌트
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. Logo
+   - 파일 위치: `app/components/atoms/Logo.tsx`
+   - 설명: 베베테라핏 로고 컴포넌트
 
-### `npm test`
+## Molecules (분자 단위 컴포넌트)
+1. MeasurementRecordItem
+   - 파일 위치: `app/components/molecules/MeasurementRecordItem.tsx`
+   - 설명: 개별 측정 기록 항목을 표시하는 컴포넌트
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. MeasurementDateSelector
+   - 파일 위치: `app/components/molecules/MeasurementDateSelector.tsx`
+   - 설명: 측정 날짜를 선택하는 컴포넌트
 
-### `npm run build`
+3. DataCard
+   - 파일 위치: `app/components/molecules/DataCard.tsx`
+   - 설명: 데이터를 카드 형태로 표시하는 컴포넌트
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. FootImage
+   - 파일 위치: `app/components/molecules/FootImage.tsx`
+   - 설명: 발 이미지와 관련 데이터를 표시하는 컴포넌트
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Organisms (유기체 단위 컴포넌트)
+1. Sidebar
+   - 파일 위치: `app/components/organisms/Sidebar.tsx`
+   - 설명: 일반 사용자용 사이드바 컴포넌트
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. AdminSidebar
+   - 파일 위치: `app/components/organisms/AdminSidebar.tsx`
+   - 설명: 관리자용 사이드바 컴포넌트
 
-### `npm run eject`
+3. UserTable
+   - 파일 위치: `app/components/organisms/UserTable.tsx`
+   - 설명: 사용자 목록을 테이블 형태로 표시하는 컴포넌트
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Templates (템플릿 컴포넌트)
+1. DashboardLayout
+   - 파일 위치: `app/components/templates/DashboardLayout.tsx`
+   - 설명: 대시보드 페이지의 전체적인 레이아웃을 정의하는 컴포넌트
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. AdminLayout
+   - 파일 위치: `app/components/templates/AdminLayout.tsx`
+   - 설명: 관리자 페이지의 전체적인 레이아웃을 정의하는 컴포넌트
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Pages (페이지 컴포넌트)
+1. LoginPage
+   - 파일 위치: `app/page.tsx`
+   - 설명: 로그인 페이지
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. DashboardPage
+   - 파일 위치: `app/dashboard/page.tsx`
+   - 설명: 사용자 대시보드 페이지
 
-## Learn More
+3. VisualizationAnalysisPage
+   - 파일 위치: `app/analysis/page.tsx`
+   - 설명: 시각화 분석 페이지
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. AdminMemberManagementPage
+   - 파일 위치: `app/admin/settings/page.tsx`
+   - 설명: 관리자 회원 관리 페이지
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+5. CustomerInfoPage
+   - 파일 위치: `app/admin/customer-info/page.tsx`
+   - 설명: 고객 정보 조회 페이지
 
-### Code Splitting
+## Context (컨텍스트)
+1. AuthContext
+   - 파일 위치: `app/contexts/AuthContext.tsx`
+   - 설명: 사용자 인증 상태를 관리하는 컨텍스트
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Hooks (커스텀 훅)
+1. useAuth
+   - 파일 위치: `app/hooks/useAuth.ts`
+   - 설명: 인증 관련 기능을 제공하는 커스텀 훅
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Utilities (유틸리티 함수)
+1. Firebase 설정
+   - 파일 위치: `app/lib/firebase.ts`
+   - 설명: Firebase 초기화 및 관련 함수

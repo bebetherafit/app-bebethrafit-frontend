@@ -1,9 +1,0 @@
-<svg width="376" height="327" viewBox="0 0 376 327" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="0.746338" y1="154.912" x2="374.945" y2="154.912" stroke="#6A707E" stroke-linecap="square" stroke-dasharray="3 2"/>
-    <line x1="205.219" y1="326.5" x2="205.219" y2="1.46929" stroke="#6A707E" stroke-linecap="square" stroke-dasharray="3 2"/>
-    <!-- 사분면 정의 -->
-    <rect id="quadrant1" x="0" y="0" width="205.219" height="154.912" fill="transparent"/>
-    <rect id="quadrant2" x="205.219" y="0" width="171" height="154.912" fill="transparent"/>
-    <rect id="quadrant3" x="0" y="154.912" width="205.219" height="172.088" fill="transparent"/>
-    <rect id="quadrant4" x="205.219" y="154.912" width="171" height="172.088" fill="transparent"/>
-</svg>
