@@ -1,7 +1,7 @@
 // app/admin/settings/page.tsx
 'use client';
 import React, { useState } from 'react';
-import AdminSidebar from '../../components/organisms/AdminSidebar';
+import AdminSidebar from '@/components/organisms/AdminSidebar';
 
 interface Member {
   id: number;

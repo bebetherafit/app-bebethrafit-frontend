@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Input from '../components/atoms/Input';
-import Button from '../components/atoms/Button';
+import Input from '@/components/atoms/Input';
+import Button from '@/components/atoms/Button';
 import { auth, db } from '../lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';

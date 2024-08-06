@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import AdminSidebar from '../../components/organisms/AdminSidebar';
+import AdminSidebar from '@/components/organisms/AdminSidebar';
 
 interface Customer {
   id: number;

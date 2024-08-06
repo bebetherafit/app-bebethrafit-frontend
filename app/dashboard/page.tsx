@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import Sidebar from '../components/organisms/Sidebar';
-import DataCard from '../components/molecules/DataCard';
-import FootImage from '../components/molecules/FootImage';
-import MeasurementDateSelector from '../components/molecules/MeasurementDateSelector';
+import Sidebar from '@/components/organisms/Sidebar';
+import DataCard from '@/components/molecules/DataCard';
+import FootImage from '@/components/molecules/FootImage';
+import MeasurementDateSelector from '@/components/molecules/MeasurementDateSelector';
 
 const DashboardPage = () => {
   const [currentDate, setCurrentDate] = useState('2023-11-18');
