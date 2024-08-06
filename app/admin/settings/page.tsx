@@ -1,5 +1,4 @@
-// app/admin/settings/page.tsx
-'use client';
+'use client'
 import React, { useState } from 'react';
 import AdminSidebar from '@/components/organisms/AdminSidebar';
 

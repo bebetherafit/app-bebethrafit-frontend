@@ -13,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   className,
   ...props
 }) => {
-  const baseStyle = 'font-sans font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseStyle = 'font-sans font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantStyles = {
     primary: 'bg-primary text-white hover:bg-primary-dark focus:ring-primary',

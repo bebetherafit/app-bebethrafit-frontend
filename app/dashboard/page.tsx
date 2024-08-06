@@ -1,31 +1,27 @@
-'use client';
+'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '../lib/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 import Sidebar from '@/components/organisms/Sidebar';
 import DataCard from '@/components/molecules/DataCard';
 import FootImage from '@/components/molecules/FootImage';
 import MeasurementDateSelector from '@/components/molecules/MeasurementDateSelector';
+import { useAuth } from '../context/AuthProvider';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const DashboardPage = () => {
   const [currentDate, setCurrentDate] = useState('2023-11-18');
+  const { user } = useAuth();  // useAuth를 통해 사용자 정보를 가져옴
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        // 사용자가 로그인하지 않은 경우 로그인 페이지로 리디렉트
-        router.push('/login');
-      } else {
-        setLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router]);
-
+    if (typeof window!=='undefined') {
+      const userSession = sessionStorage.getItem('user');
+    }
+    setLoading(false);
+  },[]);
+  
   const handleDateChange = (newDate: string) => {
     setCurrentDate(newDate);
     // Here you would typically fetch new data based on the selected date
