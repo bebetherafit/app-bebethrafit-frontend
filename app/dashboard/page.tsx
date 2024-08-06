@@ -1,5 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { auth } from '../lib/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import Sidebar from '../components/organisms/Sidebar';
 import DataCard from '../components/molecules/DataCard';
 import FootImage from '../components/molecules/FootImage';
@@ -7,11 +10,30 @@ import MeasurementDateSelector from '../components/molecules/MeasurementDateSele
 
 const DashboardPage = () => {
   const [currentDate, setCurrentDate] = useState('2023-11-18');
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // 사용자가 로그인하지 않은 경우 로그인 페이지로 리디렉트
+        router.push('/login');
+      } else {
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
 
   const handleDateChange = (newDate: string) => {
     setCurrentDate(newDate);
     // Here you would typically fetch new data based on the selected date
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
@@ -19,7 +41,7 @@ const DashboardPage = () => {
       <main className="flex-1 p-8">
         <MeasurementDateSelector 
           currentDate={currentDate}
-        //   onDateChange={handleDateChange}
+          // onDateChange={handleDateChange}
         />
         
         <div className="grid grid-cols-2 gap-6">
