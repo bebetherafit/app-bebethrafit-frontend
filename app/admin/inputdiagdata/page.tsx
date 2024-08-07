@@ -1,6 +1,9 @@
+// InputDiagDataPage.tsx
 'use client';
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { ChevronLeft, X } from 'lucide-react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 interface PressureData {
   totalPressure: { left: number, right: number },
@@ -30,32 +33,22 @@ const InputDiagDataPage = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // 예시 데이터
     const fetchData = async () => {
-      const examplePressureData: PressureData = {
-        totalPressure: { left: 99.99, right: 99.99 },
-        averagePressure: { left: 99.00, right: 99.00 },
-        areaCount: { left: 5, right: 4 }
-      };
+      const docRef = doc(db, 'users', 'he4tF9U41CUIhydjv1g3Qcr74cn2', 'diagDate', '2024-08-07');
+      const docSnap = await getDoc(docRef);
 
-      const examplePeakPressureData: PeakPressureData = {
-        peakPressure: { left: 99.99, right: 99.99 },
-        peakPressurePosition: { left: 'C7', right: 'C8' },
-        footArea: { left: 99.99, right: 99.00 },
-        copiIndex: { left: 99.00, right: 4.44 }
-      };
-
-      const exampleBalanceData: BalanceData = {
-        left: 33.33,
-        right: -33.33,
-        direction: '오른쪽',
-        rate: 0,
-        balance: '균형'
-      };
-
-      setPressureData(examplePressureData);
-      setPeakPressureData(examplePeakPressureData);
-      setBalanceData(exampleBalanceData);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        console.log('dd',data)
+        // setPressureData(data.pressureData);
+        // setPeakPressureData(data.peakPressureData);
+        // setBalanceData(data.balanceData);
+        setPressureData(data.examplePressureData);
+        setPeakPressureData(data.examplePeakPressureData);
+        setBalanceData(data.exampleBalanceData);
+      } else {
+        console.log("No such document!");
+      }
     };
 
     fetchData();
