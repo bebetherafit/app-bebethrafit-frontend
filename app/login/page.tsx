@@ -35,6 +35,8 @@ const LoginPage: React.FC = () => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           console.log("Document data:", docSnap.data());
+          sessionStorage.setItem('username', docSnap.data()?.username);
+          sessionStorage.setItem('email', docSnap.data()?.email);
           if (docSnap.data()?.isAdmin === true) {
             console.log("access confirm to admin page");
             // sessionStorage.setItem('username', res.user.username);
