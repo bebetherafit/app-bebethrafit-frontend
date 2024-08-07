@@ -3,7 +3,7 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { ChevronLeft, X } from 'lucide-react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface PressureData {
   totalPressure: { left: number, right: number },
@@ -49,19 +49,19 @@ const initialBalanceData: BalanceData = {
 
 const InputDiagDataPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const memberId = searchParams.get('memberId');
+  const diagnosticId = searchParams.get('diagnosticId');
+
   const [pressureData, setPressureData] = useState<PressureData>(initialPressureData);
   const [peakPressureData, setPeakPressureData] = useState<PeakPressureData>(initialPeakPressureData);
   const [balanceData, setBalanceData] = useState<BalanceData>(initialBalanceData);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const memberId = params.get('memberId');
-    const diagnosticId = params.get('diagnosticId');
-
     if (memberId && diagnosticId) {
       const fetchData = async () => {
-        const docRef = doc(db, 'users', memberId, 'diagDate', diagnosticId);
+        const docRef = doc(db, 'users', memberId as string, 'diagDate', diagnosticId as string);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -76,7 +76,7 @@ const InputDiagDataPage = () => {
 
       fetchData();
     }
-  }, []);
+  }, [memberId, diagnosticId]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -84,12 +84,9 @@ const InputDiagDataPage = () => {
 
   const handleSave = async () => {
     setIsEditing(false);
-    const params = new URLSearchParams(window.location.search);
-    const memberId = params.get('memberId');
-    const diagnosticId = params.get('diagnosticId');
 
     if (memberId && diagnosticId) {
-      const docRef = doc(db, 'users', memberId, 'diagDate', diagnosticId);
+      const docRef = doc(db, 'users', memberId as string, 'diagDate', diagnosticId as string);
       await setDoc(docRef, {
         pressureData,
         peakPressureData,
@@ -125,6 +122,8 @@ const InputDiagDataPage = () => {
       }));
     }
   };
+
+  if (!memberId || !diagnosticId) return <div>Loading...</div>;
 
   return (
     <div className="flex flex-col bg-white min-h-screen">
