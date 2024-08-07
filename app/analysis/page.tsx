@@ -27,26 +27,28 @@ const convertToDictionary = (dataArray: DataRow[]): DataDictionary => {
   }, {} as DataDictionary);
 };
 
-const calculateAverages = (dictionary: DataDictionary): (string | number)[][] => {
-  return Object.keys(dictionary).map((timestamp) => {
-    const valuesArray = dictionary[timestamp];
-    const numValues = valuesArray[0].length;
-    const averages = Array(numValues).fill(0);
+const calculateAveragesWithIndex = (dictionary: DataDictionary): (string | number)[][] => {
+  return Object.keys(dictionary)
+    .sort() // 타임스탬프 기준으로 정렬
+    .map((timestamp, index) => {
+      const valuesArray = dictionary[timestamp];
+      const numValues = valuesArray[0].length;
+      const averages = Array(numValues).fill(0);
 
-    // 인덱스별로 평균 계산
-    valuesArray.forEach(values => {
-      values.forEach((value, index) => {
-        averages[index] += value;
+      // 인덱스별로 평균 계산
+      valuesArray.forEach(values => {
+        values.forEach((value, index) => {
+          averages[index] += value;
+        });
       });
+
+      for (let i = 0; i < averages.length; i++) {
+        averages[i] /= valuesArray.length;
+      }
+
+      // 결과 배열의 첫 번째 원소로 타임스탬프와 인덱스 추가
+      return [index, timestamp, ...averages];
     });
-
-    for (let i = 0; i < averages.length; i++) {
-      averages[i] /= valuesArray.length;
-    }
-
-    // 결과 배열의 첫 번째 원소로 timestamp 추가
-    return [timestamp, ...averages];
-  });
 };
 
 const VisualizationAnalysisPage: React.FC = () => {
@@ -132,11 +134,11 @@ const VisualizationAnalysisPage: React.FC = () => {
         };
         return valueObj;
       }).filter((row): row is DataRow => row !== null);
-
+  
       const dictionary = convertToDictionary(rows);
       console.log('Parsed Data Dictionary:', dictionary); // dataDictionary 콘솔에 출력
-
-      const averages = calculateAverages(dictionary);
+  
+      const averages = calculateAveragesWithIndex(dictionary);
       setAverageData(averages);
       console.log('Calculated Averages:', averages); // 평균 결과 콘솔에 출력
       
@@ -206,37 +208,40 @@ const VisualizationAnalysisPage: React.FC = () => {
 
         <div className="bg-white p-4 mb-8">
           <h2 className="text-xl font-semibold mb-4">발 타임 초당 시각화 (Visualization per second)</h2>
-          <div className="grid grid-cols-6 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             {averageData.slice(0, 16).map((dataRow, index) => (
               <React.Fragment key={index}>
-                <div className="border p-2">
-                  <h3 className="text-center font-bold mb-2">{dataRow[0]}</h3>
-                  <div className="grid grid-cols-10 gap-0">
-                    {dataRow.slice(28, 88).map((value, idx) => {
-                      const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
-                      const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
-                      const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
-                      return (
-                        <div key={idx} className="border px-1 py-2 text-center text-[0px]" style={{ backgroundColor }}>
-                          {roundedValue}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="border p-2">
-                  <h3 className="text-center font-bold mb-2">{dataRow[0]}</h3>
-                  <div className="grid grid-cols-10 gap-0">
-                    {dataRow.slice(88, 148).map((value, idx) => {
-                      const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
-                      const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
-                      const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
-                      return (
-                        <div key={idx} className="border px-1 py-2 text-center text-[0px]" style={{ backgroundColor }}>
-                          {roundedValue}
-                        </div>
-                      );
-                    })}
+                <div>
+                  <h3 className="text-center font-bold mb-2">{dataRow[0]}초</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="border p-2">
+                      <div className="grid grid-cols-10 gap-0">
+                        {dataRow.slice(28, 88).map((value, idx) => {
+                          const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
+                          const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
+                          const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
+                          return (
+                            <div key={idx} className="border px-1 py-2 text-center text-[0px]" style={{ backgroundColor }}>
+                              {roundedValue}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className="border p-2">
+                      <div className="grid grid-cols-10 gap-0">
+                        {dataRow.slice(88, 148).map((value, idx) => {
+                          const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
+                          const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
+                          const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
+                          return (
+                            <div key={idx} className="border px-1 py-2 text-center text-[0px]" style={{ backgroundColor }}>
+                              {roundedValue}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </React.Fragment>
