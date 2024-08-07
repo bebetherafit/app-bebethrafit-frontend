@@ -2,58 +2,78 @@ import React from 'react';
 import Image from 'next/image';
 import Button from '../atoms/Button';
 
+interface FootPressureData {
+  side: '왼발' | '오른발';
+  total: number;
+  mean: number;
+  cell: number;
+}
+
+interface BodyBalanceData {
+  left: number;
+  right: number;
+  balance: string;
+  direction: string;
+  rate: number;
+}
+
 interface DataCardProps {
   title: string;
   image?: string;
-  footPressureDistribution?: {
-    side: 'left' | 'right';
-    total: number;
-    mean: number;
-    cell: number;
-  }[];
-  bodyBalance?: {
-    left: number;
-    right: number;
-    balance: string;
-    direction: string;
-    rate: number;
-  };
+  footPressureDistribution?: FootPressureData[];
+  bodyBalance?: BodyBalanceData;
+  indexLabels?: string[];
 }
 
-const DataCard: React.FC<DataCardProps> = ({ title, image, footPressureDistribution, bodyBalance }) => {
-  const leftFootData = footPressureDistribution?.find(data => data.side === 'left');
-  const rightFootData = footPressureDistribution?.find(data => data.side === 'right');
-
+const FootPressureTable: React.FC<{ data: FootPressureData[], indexLabels: string[] }> = ({ data, indexLabels }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm mb-4">
+    <table className="w-50 border-collapse border border-white mt-4">
+      <thead>
+        <tr>
+          <th className="border border-white px-4 py-2 bg-white"></th>
+          {data.map((item, index) => (
+            <th key={index} className="border border-white px-4 py-2 bg-white">
+              {item.side}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {indexLabels.map((label, rowIndex) => (
+          <tr key={rowIndex}>
+            <td className="border border-white px-4 py-2 font-medium">{label}</td>
+            {data.map((item, colIndex) => (
+              <td key={colIndex} className="border border-white px-4 py-2 text-center">
+                {rowIndex === 0 ? item.total :
+                 rowIndex === 1 ? item.mean :
+                 item.cell}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const DataCard: React.FC<DataCardProps> = ({
+  title,
+  image,
+  footPressureDistribution,
+  bodyBalance,
+  indexLabels = ['Index1', 'index2', 'indexN']  // 기본값 제공
+}) => {
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-sm mb-4 text-black">
+      <div className="text-md font-semibold mb-3 text-black">{title}</div>
+      <div className='grid grid-cols-2 place-items-center text-sm'>
       {image && (
-        <div className="text-center mb-4">
-          <Image src={image} alt={title} width={300} height={300} className="mx-auto" />
+        <div className="text-center mb-0">
+          <Image src={image} alt={title} width={100} height={100} className="mx-auto" />
         </div>
       )}
-      <h3 className="text-lg font-semibold mb-3 text-black">{title}</h3>
       {footPressureDistribution && (
-        <div className="mt-4 text-gray-500">
-          <h4 className="text-md font-semibold mb-2">Foot Pressure Distribution</h4>
-          <div className="flex justify-between">
-            {leftFootData && (
-              <div>
-                <h5 className="text-sm font-semibold">Left</h5>
-                <p>Total: {leftFootData.total}</p>
-                <p>Mean: {leftFootData.mean}</p>
-                <p>Cell: {leftFootData.cell}</p>
-              </div>
-            )}
-            {rightFootData && (
-              <div>
-                <h5 className="text-sm font-semibold">Right</h5>
-                <p>Total: {rightFootData.total}</p>
-                <p>Mean: {rightFootData.mean}</p>
-                <p>Cell: {rightFootData.cell}</p>
-              </div>
-            )}
-          </div>
-        </div>
+        <FootPressureTable data={footPressureDistribution} indexLabels={indexLabels} />
       )}
       {bodyBalance && (
         <div className="mt-4 text-gray-500">
@@ -65,6 +85,7 @@ const DataCard: React.FC<DataCardProps> = ({ title, image, footPressureDistribut
           </Button>
         </div>
       )}
+      </div>
     </div>
   );
 };

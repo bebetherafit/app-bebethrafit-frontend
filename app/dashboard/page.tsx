@@ -21,7 +21,6 @@ const DashboardContent = () => {
   const [loading, setLoading] = useState(true);
   const [diagData, setDiagData] = useState<any>(null); // diagData 상태 추가
 
-  // console.log('loading:', loading); // 로딩 상태 확인
   useEffect(() => {
     const fetchData = async () => {
       if (typeof window !== 'undefined') {
@@ -33,7 +32,7 @@ const DashboardContent = () => {
             let latestDate = '';
             const ids: string[] = [];
             let currentDocData = null;
-  
+
             querySnapshot.forEach((doc) => {
               const docDate = doc.id;
               ids.push(docDate);
@@ -44,18 +43,17 @@ const DashboardContent = () => {
                 currentDocData = { id: doc.id, ...doc.data() };
               }
             });
-  
+
             setDocumentIds(ids);
             if (!dateFromQuery) {
               setCurrentDate(latestDate);
               console.log('Latest Date:', latestDate);
             }
-  
+
             // currentDate와 일치하는 문서를 로컬 스토리지에 저장
             if (currentDocData) {
               const dataJSON = JSON.stringify(currentDocData);
-              localStorage.setItem('diagData', dataJSON);
-              console.log('Data saved to localStorage');
+              sessionStorage.setItem('diagData', dataJSON);
             }
 
             console.log(localStorage.getItem('diagData'));
@@ -66,9 +64,9 @@ const DashboardContent = () => {
       }
       setLoading(false);
     };
-  
+
     fetchData();
-    // console.log('loading2 :', loading); // 로딩 상태 확인
+
     // 로컬 스토리지에서 데이터를 가져와 상태에 저장하는 코드
     if (typeof window !== 'undefined') {
       const storedData = localStorage.getItem('diagData');
@@ -103,26 +101,27 @@ const DashboardContent = () => {
           currentDate={currentDate}
           documentIds={documentIds}
         />
-        {/* <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6">
           <DataCard
             title="발 압력 분포 분석"
-            image=""
+            image="/images/foot.png"
+            indexLabels={['총 압력 값', '평균 압력 값', '면적 수']}
             footPressureDistribution={[
-              { side: 'left', 
-                total: diagData.pressureData.totalPressure.left, 
-                mean: diagData.pressureData.averagePressure.left, 
-                cell: diagData.peakPressureData.peakPressure.left },
-              { side: 'right', 
-                total: diagData.pressureData.totalPressure.right, 
-                mean: diagData.pressureData.averagePressure.right, 
-                cell: diagData.peakPressureData.peakPressure.right },
+              { side: '왼발',
+                total: diagData.pressureData.totalPressure.left,
+                mean: diagData.pressureData.averagePressure.left,
+                cell: diagData.peakPressureData.peakPressure.left},
+              { side: '오른발',
+                total: diagData.pressureData.totalPressure.right,
+                mean: diagData.pressureData.averagePressure.right,
+                cell: diagData.peakPressureData.peakPressure.right},
             ]}
           />
           <DataCard
             title="신체 균형 분석"
-            image=""
+            image="/images/human-bal.png"
             bodyBalance={
-              { left: diagData.balanceData.left, 
+              { left: diagData.balanceData.left,
                 right: diagData.balanceData.right,
                 balance: diagData.balanceData.balance,
                 direction: diagData.balanceData.direction,
@@ -130,8 +129,26 @@ const DashboardContent = () => {
               }
             }
           />
-        </div> */}
+        </div>
 
+        <div className='bg-white'>
+          <PressureChart
+            title="발 총 압력 (Total Pressure)"
+            data={[
+              { side: 'left', total: diagData.pressureData.totalPressure.left, mean: diagData.pressureData.averagePressure.left, cell: diagData.peakPressureData.peakPressure.left },
+              { side: 'right', total: diagData.pressureData.totalPressure.right, mean: diagData.pressureData.averagePressure.right, cell: diagData.peakPressureData.peakPressure.right },
+            ]}
+            type="total"
+          />
+          <PressureChart
+            title="발 평균 압력 (Average Pressure)"
+            data={[
+              { side: 'left', total: diagData.pressureData.totalPressure.left, mean: diagData.pressureData.averagePressure.left, cell: diagData.peakPressureData.peakPressure.left },
+              { side: 'right', total: diagData.pressureData.totalPressure.right, mean: diagData.pressureData.averagePressure.right, cell: diagData.peakPressureData.peakPressure.right },
+            ]}
+            type="mean"
+          />
+        </div>
         {/* <div className="mt-6">
           <div className="grid grid-cols-2 gap-6">
             <DataCard
