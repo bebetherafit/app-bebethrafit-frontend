@@ -21,6 +21,7 @@ const DashboardContent = () => {
   const [loading, setLoading] = useState(true);
   const [diagData, setDiagData] = useState<any>(null); // diagData 상태 추가
 
+  // console.log('loading:', loading); // 로딩 상태 확인
   useEffect(() => {
     const fetchData = async () => {
       if (typeof window !== 'undefined') {
@@ -47,6 +48,7 @@ const DashboardContent = () => {
             setDocumentIds(ids);
             if (!dateFromQuery) {
               setCurrentDate(latestDate);
+              console.log('Latest Date:', latestDate);
             }
   
             // currentDate와 일치하는 문서를 로컬 스토리지에 저장
@@ -55,7 +57,8 @@ const DashboardContent = () => {
               localStorage.setItem('diagData', dataJSON);
               console.log('Data saved to localStorage');
             }
-  
+
+            console.log(localStorage.getItem('diagData'));
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -65,7 +68,7 @@ const DashboardContent = () => {
     };
   
     fetchData();
-
+    // console.log('loading2 :', loading); // 로딩 상태 확인
     // 로컬 스토리지에서 데이터를 가져와 상태에 저장하는 코드
     if (typeof window !== 'undefined') {
       const storedData = localStorage.getItem('diagData');
@@ -100,7 +103,7 @@ const DashboardContent = () => {
           currentDate={currentDate}
           documentIds={documentIds}
         />
-        <div className="grid grid-cols-2 gap-6">
+        {/* <div className="grid grid-cols-2 gap-6">
           <DataCard
             title="발 압력 분포 분석"
             image=""
@@ -127,9 +130,9 @@ const DashboardContent = () => {
               }
             }
           />
-        </div>
+        </div> */}
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <div className="grid grid-cols-2 gap-6">
             <DataCard
               title="발 총 압력 (Total Pressure)"
@@ -148,7 +151,7 @@ const DashboardContent = () => {
               ]}
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Uncomment and adjust these sections as needed
         <div className="mt-6">
