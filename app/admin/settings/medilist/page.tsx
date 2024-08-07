@@ -1,8 +1,7 @@
-'use client'
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 interface DiagnosticInfo {
   id: string;
@@ -10,62 +9,39 @@ interface DiagnosticInfo {
   info: string;
 }
 
-const MediListPage: React.FC = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [memberId, setMemberId] = useState<string | null>(null);
-  const [diagnostics, setDiagnostics] = useState<DiagnosticInfo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+async function fetchDiagnostics(memberId: string): Promise<DiagnosticInfo[]> {
+  const diagnosticsRef = collection(db, 'users', memberId, 'diagDate');
+  const querySnapshot = await getDocs(diagnosticsRef);
 
-  useEffect(() => {
-    const memberIdParam = searchParams.get('memberId');
-    if (memberIdParam) {
-      setMemberId(memberIdParam);
-      fetchDiagnostics(memberIdParam);
-    } else {
-      setIsLoading(false);
-      setError('Member ID is missing');
-    }
-  }, [searchParams]);
+  return querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    date: doc.id,
+    info: doc.data().info || ''
+  }));
+}
 
-  const fetchDiagnostics = async (memberId: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const diagnosticsRef = collection(db, 'users', memberId, 'diagDate');
-      const querySnapshot = await getDocs(diagnosticsRef);
+export default async function MediListPage({ 
+  searchParams 
+}: { 
+  searchParams: { memberId: string } 
+}) {
+  const memberId = searchParams.memberId;
 
-      const diagnosticsData: DiagnosticInfo[] = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        date: doc.id,
-        info: doc.data().info || ''
-      }));
-      
-      setDiagnostics(diagnosticsData);
-    } catch (error) {
-      console.error("Error fetching diagnostics: ", error);
-      setError('Failed to fetch diagnostics. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleEditDiagnostic = (diagnosticId: string) => {
-    router.push(`/admin/settings/inputdiagdata?memberId=${memberId}&diagnosticId=${diagnosticId}`);
-  };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (!memberId) {
+    return <div>Error: Member ID is missing</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  let diagnostics: DiagnosticInfo[];
+  try {
+    diagnostics = await fetchDiagnostics(memberId);
+  } catch (error) {
+    console.error("Error fetching diagnostics: ", error);
+    return <div>Error: Failed to fetch diagnostics. Please try again.</div>;
   }
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 p-8">
-      <button className="mb-4 text-blue-500 hover:underline" onClick={() => router.back()}>뒤로가기</button>
+      <Link href="/admin/settings" className="mb-4 text-blue-500 hover:underline">뒤로가기</Link>
       <h2 className="text-2xl font-bold mb-4">ID: {memberId}</h2>
       <table className="min-w-full bg-white">
         <thead>
@@ -81,7 +57,7 @@ const MediListPage: React.FC = () => {
               <td className="py-3 px-6 text-left whitespace-nowrap">{index + 1}</td>
               <td className="py-3 px-6 text-left">{diagnostic.date}</td>
               <td className="py-3 px-6 text-center">
-                <button className="text-blue-500 hover:underline" onClick={() => handleEditDiagnostic(diagnostic.id)}>수정</button>
+                <Link href={`/admin/settings/inputdiagdata?memberId=${memberId}&diagnosticId=${diagnostic.id}`} className="text-blue-500 hover:underline">수정</Link>
                 <button className="text-blue-500 hover:underline ml-2">등록</button>
                 <button className="text-red-500 hover:underline ml-2">삭제</button>
                 <button className="text-green-500 hover:underline ml-2">+</button>
@@ -92,6 +68,4 @@ const MediListPage: React.FC = () => {
       </table>
     </div>
   );
-};
-
-export default MediListPage;
+}
