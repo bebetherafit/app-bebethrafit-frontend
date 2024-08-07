@@ -9,8 +9,6 @@ import MeasurementDateSelector from '@/components/molecules/MeasurementDateSelec
 import { useAuth } from '../context/AuthProvider';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-console.log("isAdmin: ", sessionStorage.getItem('isAdmin'), "uid: ", sessionStorage.getItem('uid'));
-
 const DashboardPage = () => {
   const [currentDate, setCurrentDate] = useState('2023-11-18');
   const { user } = useAuth();  // useAuth를 통해 사용자 정보를 가져옴
