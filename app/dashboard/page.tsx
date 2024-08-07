@@ -124,7 +124,7 @@ const DashboardContent = () => {
           />
         </div>
 
-        <div className='bg-white'>
+        <div className='bg-white rounded-md'>
           <PressureChart
             title="발 총 압력 (Total Pressure)"
             data={[
