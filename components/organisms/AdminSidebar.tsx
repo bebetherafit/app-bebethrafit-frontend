@@ -10,8 +10,8 @@ const AdminSidebar = () => {
   return (
     <div className="w-64 bg-white h-screen p-5 flex flex-col">
       <div className="mb-10">
-        <Image src="/logo.svg" alt="베베테라핏" width={150} height={40} />
-        <p className="text-lg font-semibold mt-2">관리자</p>
+        <Image src="/images/bebe-logo-eng.png" alt="베베테라핏" width={150} height={40} />
+        <p className="text-lg font-semibold mt-2 text-black">관리자</p>
       </div>
       <nav className="flex-grow">
         <Link href="/admin/settings" className={`flex items-center py-2 px-4 rounded-md mb-2 ${
