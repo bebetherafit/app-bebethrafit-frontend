@@ -1,6 +1,7 @@
+// app/dashboard/page.tsx
 'use client'
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { auth, db } from '@/lib/firebase';
 import Sidebar from '@/components/organisms/Sidebar';
 import DataCard from '@/components/molecules/DataCard';
@@ -10,29 +11,36 @@ import { useAuth } from '../context/AuthProvider';
 import { collection, getDocs } from 'firebase/firestore';
 
 const DashboardPage = () => {
-  const [currentDate, setCurrentDate] = useState('2023-11-18');
-  const { user } = useAuth();  // useAuth를 통해 사용자 정보를 가져옴
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const dateFromQuery = searchParams.get('date');
+  
+  const [currentDate, setCurrentDate] = useState(dateFromQuery || '');
+  const [documentIds, setDocumentIds] = useState<string[]>([]);
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       if (typeof window !== 'undefined') {
         const userUid = sessionStorage.getItem('uid');
-        console.log(userUid)
         if (userUid) {
           try {
             const diagDateCollectionRef = collection(db, 'users', userUid, 'diagDate');
             const querySnapshot = await getDocs(diagDateCollectionRef);
             let latestDate = '';
+            const ids: string[] = [];
             querySnapshot.forEach((doc) => {
-              const docDate = doc.id;  // 문서 ID가 날짜라고 가정
+              const docDate = doc.id;
+              ids.push(docDate);
               if (!latestDate || new Date(docDate) > new Date(latestDate)) {
                 latestDate = docDate;
               }
-              console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
             });
-            setCurrentDate(latestDate);  // 최신 날짜로 상태 업데이트
+            setDocumentIds(ids);
+            if (!dateFromQuery) {
+              setCurrentDate(latestDate);
+            }
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -42,12 +50,11 @@ const DashboardPage = () => {
     };
     
     fetchData();
-  }, []);
+  }, [dateFromQuery]);
 
-  const handleDateChange = (newDate: string) => {
-    setCurrentDate(newDate);
-    // Here you would typically fetch new data based on the selected date
-  };
+  useEffect(() => {
+    console.log('Current Date:', currentDate);
+  }, [currentDate]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -57,44 +64,44 @@ const DashboardPage = () => {
     <div className="flex bg-gray-100 min-h-screen">
       <Sidebar />
       <main className="flex-1 p-8">
-      <MeasurementDateSelector
-        currentDate={currentDate}
-        // onDateChange={handleDateChange}
-      />
-      <div className="grid grid-cols-2 gap-6">
-        <DataCard
-          title="발 압력 분포 분석"
-          image=""
-          footPressureDistribution={[
-            { side: 'left', total: 99.99, mean: 50, cell: 20 },
-            { side: 'right', total: 99.99, mean: 50, cell: 20 },
-          ]}
+        <MeasurementDateSelector
+          currentDate={currentDate}
+          documentIds={documentIds}
         />
-        <DataCard
-          title="신체 균형 분석"
-          image=""
-          bodyBalance={{ left: -0.0222, right: 0.333 }}
-        />
-      </div>
-
-      <div className="mt-6">
-        <div className="grid gap-6">
+        <div className="grid grid-cols-2 gap-6">
           <DataCard
-            title="발 총 압력 (Total Pressure)"
+            title="발 압력 분포 분석"
             image=""
             footPressureDistribution={[
-              { side: 'left', total: 96.12, mean: 0, cell: 0 },
+              { side: 'left', total: 99.99, mean: 50, cell: 20 },
+              { side: 'right', total: 99.99, mean: 50, cell: 20 },
             ]}
           />
           <DataCard
-            title="발 평균압력 (Average Pressure)"
+            title="신체 균형 분석"
             image=""
-            footPressureDistribution={[
-              { side: 'left', total: 0, mean: 96.12, cell: 0 },
-            ]}
+            bodyBalance={{ left: -0.0222, right: 0.333 }}
           />
         </div>
-      </div>
+
+        <div className="mt-6">
+          <div className="grid gap-6">
+            <DataCard
+              title="발 총 압력 (Total Pressure)"
+              image=""
+              footPressureDistribution={[
+                { side: 'left', total: 96.12, mean: 0, cell: 0 },
+              ]}
+            />
+            <DataCard
+              title="발 평균압력 (Average Pressure)"
+              image=""
+              footPressureDistribution={[
+                { side: 'left', total: 0, mean: 96.12, cell: 0 },
+              ]}
+            />
+          </div>
+        </div>
 
         <div className="mt-6">
           <h2 className="text-xl font-semibold mb-4">발 최고 압력 (Peak Pressure)</h2>
