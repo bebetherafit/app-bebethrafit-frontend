@@ -50,17 +50,21 @@ const calculateAverages = (dictionary: DataDictionary): (string | number)[][] =>
 };
 
 const VisualizationAnalysisPage: React.FC = () => {
-  const [averageData, setAverageData] = useState<(string | number)[][]>(() => {
-    // 컴포넌트 초기화 시 로컬 스토리지에서 데이터 로드
-    const savedData = localStorage.getItem('averageData');
-    return savedData ? JSON.parse(savedData) : [];
-  });
+  const [averageData, setAverageData] = useState<(string | number)[][]>([]);
   const [firstTenAverages, setFirstTenAverages] = useState<number[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [LCOPI, setLCOPI] = useState<number | null>(null);
   const [RCOPI, setRCOPI] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // 컴포넌트 마운트 시 로컬 스토리지에서 데이터 로드
+    const savedData = localStorage.getItem('averageData');
+    if (savedData) {
+      setAverageData(JSON.parse(savedData));
+    }
+  }, []);
 
   useEffect(() => {
     if (averageData.length >= 10) {
