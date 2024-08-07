@@ -4,6 +4,7 @@ import AdminSidebar from '@/components/organisms/AdminSidebar';
 import { collection, getDocs, setDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { db } from '@/lib/firebase';
+import { useRouter } from 'next/navigation';
 import { Plus } from 'lucide-react';
 
 interface Member {
@@ -21,6 +22,7 @@ const AdminMemberManagementPage = () => {
   const [editingMember, setEditingMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -60,11 +62,9 @@ const AdminMemberManagementPage = () => {
     if (newMember.username && newMember.email && newMember.password) {
       setLoading(true);
       try {
-        // Step 2: Create new user in Firebase Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, newMember.email, newMember.password);
         const user = userCredential.user;
 
-        // Step 3: Add user to Firestore using the user's UID
         await setDoc(doc(db, 'users', user.uid), {
           username: newMember.username,
           email: newMember.email,
@@ -73,7 +73,6 @@ const AdminMemberManagementPage = () => {
           birth: newMember.birth,
         });
 
-        // Update local state
         setMembers(prev => [...prev, { id: user.uid, ...newMember }]);
         setNewMember({ username: '', email: '', password: '', isAdmin: false, birth: '' });
       } catch (error) {
@@ -120,6 +119,10 @@ const AdminMemberManagementPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleOpenDiagnostics = (memberId: string) => {
+    router.push(`/admin/settings/medilist?memberId=${memberId}`);
   };
 
   return (
@@ -199,15 +202,19 @@ const AdminMemberManagementPage = () => {
                   <td className="py-3 px-6 text-left">{member.email}</td>
                   <td className="py-3 px-6 text-left">{member.password}</td>
                   <td className="py-3 px-6 text-center flex flex-row items-center ">
-                    <button onClick={() => handleEditMember(member.id)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">
+                  {/* <button className="text-blue-500 hover:underline">등록</button> */}
+                <button onClick={() => handleEditMember(member.id)} className="text-blue-500 hover:underline ml-2">수정</button>
+                <button onClick={() => handleDeleteMember(member.id)} className="text-red-500 hover:underline ml-2">삭제</button>
+                <button onClick={() => handleOpenDiagnostics(member.id)} className="text-green-500 hover:underline ml-2">+</button>
+                    {/* <button onClick={() => handleEditMember(member.id)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">
                       수정
                     </button>
                     <button onClick={() => handleDeleteMember(member.id)} className="bg-red-500 text-white px-2 py-1 rounded mr-2">
                       삭제
                     </button>
-                    <button onClick={() => console.log('Plus icon clicked')} className="bg-green-500 text-white px-2 py-1 rounded">
+                    <button onClick={() => handleOpenDiagnostics(member.id)} className="bg-green-500 text-white px-2 py-1 rounded">
                       <Plus size={16} />
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))}
