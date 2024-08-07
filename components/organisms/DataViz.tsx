@@ -28,7 +28,7 @@ const FootPressureOrganism: React.FC<FootPressureOrganismProps> = ({
         <div className={`w-full ${imageUrl ? 'md:w-2/3 md:pl-4' : ''}`}>
           <span className="font-normal rounded-full bg-green-400 text-green-500">{footDirection}</span>
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
+            <table className="w-full border-collapse text-sm  ">
               <tbody>
                 {tableData.map((row, rowIndex) => (
                   <tr key={rowIndex}>

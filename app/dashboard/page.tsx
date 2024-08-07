@@ -70,7 +70,7 @@ const DashboardContent = () => {
 
     fetchData();
   }, [dateFromQuery, currentDate]);
-
+  // console.log(diagData)
   useEffect(() => {
     // console.log('Current Date:', currentDate);
   }, [currentDate]);
@@ -152,8 +152,8 @@ const DashboardContent = () => {
             footDirection={diagData.footDirection}
             tableData={[
               ['', '왼발'],
-              ['발 최고 압력값(kPa)', 0],
-              ['발 최고 압력 위치', 0],
+              ['발 최고 압력값(kPa)', diagData.peakPressureData.peakPressure.left],
+              ['발 최고 압력 위치', '발 중간'],
             ]}
           />
           <DataViz
@@ -162,8 +162,8 @@ const DashboardContent = () => {
             footDirection={diagData.footDirection}
             tableData={[
               ['', '오른발'],
-              ['발 최고 압력값(kPa)', 0],
-              ['발 최고 압력 위치', 0],
+              ['발 최고 압력값(kPa)', diagData.peakPressureData.peakPressure.right],
+              ['발 최고 압력 위치', '발 바깥 쪽'],
             ]}
           />
           </div>
@@ -174,8 +174,8 @@ const DashboardContent = () => {
             footDirection={diagData.footDirection}
             tableData={[
               ['', '왼발'],
-              ['발 면적 수 (N/Cell)', 0],
-              ['발 면적(cm2)', 0],
+              ['발 면적 수 (N/10Cell)', diagData.pressureData.areaCount.left],
+              ['발 면적(cm2)', diagData.peakPressureData.footArea.left],
             ]}
           />
           <DataViz
@@ -184,14 +184,12 @@ const DashboardContent = () => {
             footDirection={diagData.footDirection}
             tableData={[
               ['', '오른발'],
-              ['발 면적 수 (N/Cell)', 0],
-              ['발 면적(cm2)', 0],
+              ['발 면적 수 (N/10Cell)', diagData.pressureData.areaCount.right],
+              ['발 면적(cm2)', diagData.peakPressureData.footArea.right],
             ]}
           />
           </div>
         </div>
-        
-          
       </main>
     </div>
   );
