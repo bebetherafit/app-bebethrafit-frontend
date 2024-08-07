@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ChevronLeft, X } from 'lucide-react';
 
 interface PressureData {
   totalPressure: { left: number, right: number },
@@ -103,10 +102,10 @@ const InputDiagDataPage = () => {
     <div className="flex flex-col bg-white min-h-screen">
       <div className='flex border-b border-gray-500 justify-between px-60 py-3'>
         <button className='text-black'>
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <ChevronLeft />
         </button>
         <button className='text-black'>
-          <FontAwesomeIcon icon={faTimes} />
+          <X />
         </button>
       </div>
 
