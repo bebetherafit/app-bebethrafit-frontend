@@ -36,15 +36,13 @@ const LoginPage: React.FC = () => {
           console.log("Document data:", docSnap.data());
           if (docSnap.data()?.isAdmin === true) {
             console.log("access confirm to admin page");
-            router.push('/admin');
+            sessionStorage.setItem('isAdmin', 'true');
+            router.push('/admin/settings'); // isAdmin이 true인 경우 admin/settings page로 이동
           } else {
             console.log("access to dashboard page");
             router.push('/dashboard'); // isAdmin이 false인 경우 dashboard로 이동
           }
-        } else {
-          console.log("No such document!");
-          // router.push('/dashboard');  // isAdmin이 false인 경우 dashboard로 이동
-        }
+        } 
       }
     } catch (error) {
       console.error('Error logging in:', error);
