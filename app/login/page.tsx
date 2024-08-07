@@ -5,6 +5,8 @@ import Input from '@/components/atoms/Input';
 import Button from '@/components/atoms/Button';
 import { auth } from '@/lib/firebase'; // 초기화된 auth를 가져옴
 import { useRouter } from 'next/navigation';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '../context/AuthProvider';
@@ -27,7 +29,23 @@ const LoginPage: React.FC = () => {
       if (!res.user) {
         throw new Error('Failed to authenticate');
       }
-      router.push('/dashboard');
+      else {
+        const docRef = doc(db, 'users', res.user.uid); // 로그인 후 user.uid를 사용하여 docRef를 설정
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+          if (docSnap.data()?.isAdmin === true) {
+            console.log("access confirm to admin page");
+            router.push('/admin');
+          } else {
+            console.log("access to dashboard page");
+            router.push('/dashboard'); // isAdmin이 false인 경우 dashboard로 이동
+          }
+        } else {
+          console.log("No such document!");
+          // router.push('/dashboard');  // isAdmin이 false인 경우 dashboard로 이동
+        }
+      }
     } catch (error) {
       console.error('Error logging in:', error);
       if (error instanceof Error) {
