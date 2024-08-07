@@ -36,6 +36,7 @@ const LoginPage: React.FC = () => {
           console.log("Document data:", docSnap.data());
           if (docSnap.data()?.isAdmin === true) {
             console.log("access confirm to admin page");
+            sessionStorage.setItem('uid', res.user.uid);
             sessionStorage.setItem('isAdmin', 'true');
             router.push('/admin/settings'); // isAdmin이 true인 경우 admin/settings page로 이동
           } else {
