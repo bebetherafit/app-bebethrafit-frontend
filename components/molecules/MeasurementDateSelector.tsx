@@ -14,11 +14,11 @@ const MeasurementDateSelector: React.FC<MeasurementDateSelectorProps> = ({ curre
   };
 
   return (
-    <div className="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm mb-6">
+    <div className="flex items-center justify-between text-black bg-white p-4 rounded-lg shadow-sm mb-6">
       <h2 className="text-xl font-semibold">{currentDate} 분석 리포트</h2>
       <button 
         onClick={handleRecordSelect}
-        className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
+        className="text-green-500 px-4 py-2 "
       >
         측정 기록 조회 &gt;
       </button>

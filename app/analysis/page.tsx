@@ -1,12 +1,13 @@
-// app/analysis/page.tsx
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import Sidebar from '@/components/organisms/Sidebar';
 
 const VisualizationAnalysisPage = () => {
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="flex bg-gray-100 min-h-screen text-black">
+      <Sidebar />
+      <div className="grid grid-cols-1 gap-6">
         <h1 className="text-2xl font-bold">발 타입 시각화 (Visualization)</h1>
         <button className="text-green-500 flex items-center">
           데이터 불러오기 <span className="ml-1">↓</span>

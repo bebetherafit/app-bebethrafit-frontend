@@ -2,7 +2,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import MeasurementRecordItem from '../components/molecules/MeasurementRecordItem';
+import MeasurementRecordItem from '@/components/molecules/MeasurementRecordItem';
 
 const MeasurementRecordsPage = () => {
   const router = useRouter();

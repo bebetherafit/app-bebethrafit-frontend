@@ -46,8 +46,8 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="bg-white p-8 rounded-lg w-full max-w-md">
       <div className="flex justify-center mb-8">
       <Image src="/images/logo-kor.png" alt="logo" width={200} height={200} />
     </div>

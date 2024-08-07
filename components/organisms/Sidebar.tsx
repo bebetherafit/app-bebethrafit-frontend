@@ -8,14 +8,14 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="w-64 bg-white h-screen p-5 flex flex-col">
+    <div className="w-64 bg-white p-5 flex flex-col rounded-tr-3xl max-h-screen drop-shadow-md">
       <div className="mb-10">
-        <Image src="/logo.svg" alt="베베테라핏" width={150} height={40} />
+        <Image src="/images/bebe-logo-eng.png" alt="베베테라핏" width={150} height={40} />
       </div>
       <div className="flex items-center mb-8">
         <Image src="/avatar.jpg" alt="사용자 이미지" width={40} height={40} className="rounded-full mr-3" />
         <div>
-          <p className="font-bold">김서우</p>
+          <p className="font-bold text-black"></p>
           <p className="text-sm text-gray-500">bebetherapfit@gmail.com</p>
         </div>
       </div>
