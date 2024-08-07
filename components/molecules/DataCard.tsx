@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Button from '../atoms/Button';
 
 interface DataCardProps {
   title: string;
@@ -13,6 +14,9 @@ interface DataCardProps {
   bodyBalance?: {
     left: number;
     right: number;
+    balance: string;
+    direction: string;
+    rate: number;
   };
 }
 
@@ -56,6 +60,9 @@ const DataCard: React.FC<DataCardProps> = ({ title, image, footPressureDistribut
           <h4 className="text-md font-semibold mb-2">Body Balance</h4>
           <p>Left: {bodyBalance.left}</p>
           <p>Right: {bodyBalance.right}</p>
+          <Button className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+            {bodyBalance.balance} {bodyBalance.direction} {bodyBalance.rate}
+          </Button>
         </div>
       )}
     </div>

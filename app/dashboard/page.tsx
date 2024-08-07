@@ -19,6 +19,7 @@ const DashboardContent = () => {
   const [documentIds, setDocumentIds] = useState<string[]>([]);
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [diagData, setDiagData] = useState<any>(null); // diagData 상태 추가
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,17 +31,31 @@ const DashboardContent = () => {
             const querySnapshot = await getDocs(diagDateCollectionRef);
             let latestDate = '';
             const ids: string[] = [];
+            let currentDocData = null;
+  
             querySnapshot.forEach((doc) => {
               const docDate = doc.id;
               ids.push(docDate);
               if (!latestDate || new Date(docDate) > new Date(latestDate)) {
                 latestDate = docDate;
               }
+              if (docDate === currentDate) {
+                currentDocData = { id: doc.id, ...doc.data() };
+              }
             });
+  
             setDocumentIds(ids);
             if (!dateFromQuery) {
               setCurrentDate(latestDate);
             }
+  
+            // currentDate와 일치하는 문서를 로컬 스토리지에 저장
+            if (currentDocData) {
+              const dataJSON = JSON.stringify(currentDocData);
+              localStorage.setItem('diagData', dataJSON);
+              console.log('Data saved to localStorage');
+            }
+  
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -48,9 +63,21 @@ const DashboardContent = () => {
       }
       setLoading(false);
     };
-    
+  
     fetchData();
-  }, [dateFromQuery]);
+
+    // 로컬 스토리지에서 데이터를 가져와 상태에 저장하는 코드
+    if (typeof window !== 'undefined') {
+      const storedData = localStorage.getItem('diagData');
+      if (storedData) {
+        setDiagData(JSON.parse(storedData));
+        console.log('Stored Data:', JSON.parse(storedData));
+      } else {
+        console.log('No data found in localStorage');
+      }
+    }
+
+  }, [dateFromQuery, currentDate]);
 
   useEffect(() => {
     console.log('Current Date:', currentDate);
@@ -78,14 +105,27 @@ const DashboardContent = () => {
             title="발 압력 분포 분석"
             image=""
             footPressureDistribution={[
-              { side: 'left', total: 99.99, mean: 50, cell: 20 },
-              { side: 'right', total: 99.99, mean: 50, cell: 20 },
+              { side: 'left', 
+                total: diagData.pressureData.totalPressure.left, 
+                mean: diagData.pressureData.averagePressure.left, 
+                cell: diagData.peakPressureData.peakPressure.left },
+              { side: 'right', 
+                total: diagData.pressureData.totalPressure.right, 
+                mean: diagData.pressureData.averagePressure.right, 
+                cell: diagData.peakPressureData.peakPressure.right },
             ]}
           />
           <DataCard
             title="신체 균형 분석"
             image=""
-            bodyBalance={{ left: -0.0222, right: 0.333 }}
+            bodyBalance={
+              { left: diagData.balanceData.left, 
+                right: diagData.balanceData.right,
+                balance: diagData.balanceData.balance,
+                direction: diagData.balanceData.direction,
+                rate: diagData.balanceData.rate
+              }
+            }
           />
         </div>
 
