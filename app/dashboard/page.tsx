@@ -1,13 +1,13 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import Sidebar from '@/components/organisms/Sidebar';
 import DataCard from '@/components/molecules/DataCard';
 import FootImage from '@/components/molecules/FootImage';
 import MeasurementDateSelector from '@/components/molecules/MeasurementDateSelector';
 import { useAuth } from '../context/AuthProvider';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { collection, getDocs } from 'firebase/firestore';
 
 const DashboardPage = () => {
   const [currentDate, setCurrentDate] = useState('2023-11-18');
@@ -16,12 +16,28 @@ const DashboardPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window!=='undefined') {
-      const userSession = sessionStorage.getItem('user');
-    }
-    setLoading(false);
-  },[]);
-  
+    const fetchData = async () => {
+      if (typeof window !== 'undefined') {
+        const userUid = sessionStorage.getItem('uid');
+        console.log(userUid)
+        if (userUid) {
+          try {
+            const diagDateCollectionRef = collection(db, 'users', userUid, 'diagDate');
+            const querySnapshot = await getDocs(diagDateCollectionRef);
+            querySnapshot.forEach((doc) => {
+              console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+            });
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+      }
+      setLoading(false);
+    };
+    
+    fetchData();
+  }, []);
+
   const handleDateChange = (newDate: string) => {
     setCurrentDate(newDate);
     // Here you would typically fetch new data based on the selected date
@@ -85,7 +101,6 @@ const DashboardPage = () => {
                 { label: "발 최고 압력값 (kPa)", value: "66.44" },
                 { label: "발 최고 압력 위치", value: "발 안쪽" }
               ]}
-
             />
             <FootImage 
               side="right"
