@@ -46,7 +46,7 @@ const DashboardContent = () => {
             setDocumentIds(ids);
             if (!dateFromQuery) {
               setCurrentDate(latestDate);
-              console.log('Latest Date:', latestDate);
+              // console.log('Latest Date:', latestDate);
             }
 
             if (currentDocData) {
@@ -70,7 +70,7 @@ const DashboardContent = () => {
   }, [dateFromQuery, currentDate]);
 
   useEffect(() => {
-    console.log('Current Date:', currentDate);
+    // console.log('Current Date:', currentDate);
   }, [currentDate]);
 
   if (loading) {
