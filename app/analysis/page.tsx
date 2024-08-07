@@ -86,8 +86,8 @@ const VisualizationAnalysisPage: React.FC = () => {
 
   useEffect(() => {
     if (averageData.length > 0) {
-      const lCops = averageData.map(row => row[6] as number);
-      const rCops = averageData.map(row => row[7] as number);
+      const lCops = averageData.map(row => row[7] as number);
+      const rCops = averageData.map(row => row[8] as number);
       const lCopiAvg = lCops.reduce((acc, val) => acc + val, 0) / lCops.length;
       const rCopiAvg = rCops.reduce((acc, val) => acc + val, 0) / rCops.length;
       setLCOPI(parseFloat(lCopiAvg.toFixed(1)));
@@ -176,7 +176,7 @@ const VisualizationAnalysisPage: React.FC = () => {
             <div className="grid grid-cols-2 w-3/5 mx-auto gap-8">
               <div className="border p-2">
                 <div className="grid grid-cols-10 gap-0">
-                  {firstTenAverages.slice(27, 87).map((value, idx) => {
+                  {firstTenAverages.slice(28, 88).map((value, idx) => {
                     const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
                     const intensity = (roundedValue === '0.0') ? 0 : Math.min(Math.floor((roundedValue as unknown as number) / 15), 6); // 0은 흰색 유지
                     const backgroundColor = roundedValue === '0.0' ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
@@ -190,7 +190,7 @@ const VisualizationAnalysisPage: React.FC = () => {
               </div>
               <div className="border p-2">
                 <div className="grid grid-cols-10 gap-0">
-                  {firstTenAverages.slice(87, 147).map((value, idx) => {
+                  {firstTenAverages.slice(88, 148).map((value, idx) => {
                     const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
                     const intensity = (roundedValue === '0.0') ? 0 : Math.min(Math.floor((roundedValue as unknown as number) / 15), 6); // 0은 흰색 유지
                     const backgroundColor = roundedValue === '0.0' ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
@@ -216,7 +216,7 @@ const VisualizationAnalysisPage: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="border p-2">
                       <div className="grid grid-cols-10 gap-0">
-                        {dataRow.slice(28, 88).map((value, idx) => {
+                        {dataRow.slice(29, 89).map((value, idx) => {
                           const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
                           const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
                           const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
@@ -230,7 +230,7 @@ const VisualizationAnalysisPage: React.FC = () => {
                     </div>
                     <div className="border p-2">
                       <div className="grid grid-cols-10 gap-0">
-                        {dataRow.slice(88, 148).map((value, idx) => {
+                        {dataRow.slice(89, 149).map((value, idx) => {
                           const roundedValue = typeof value === 'number' ? value.toFixed(1) : value; // 소수점 첫 번째 자리에서 자름
                           const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
                           const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
