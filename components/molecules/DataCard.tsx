@@ -4,7 +4,7 @@ import Button from '../atoms/Button';
 
 interface FootPressureData {
   side: '왼발' | '오른발';
-  total: number;
+  total: number; 
   mean: number;
   cell: number;
 }
@@ -20,6 +20,7 @@ interface BodyBalanceData {
 interface DataCardProps {
   title: string;
   image?: string;
+
   footPressureDistribution?: FootPressureData[];
   bodyBalance?: BodyBalanceData;
   indexLabels?: string[];
