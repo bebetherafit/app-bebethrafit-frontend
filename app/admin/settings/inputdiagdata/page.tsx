@@ -1,133 +1,108 @@
+// InputDiagDataPage.tsx
 'use client';
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { ChevronLeft, X } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 interface PressureData {
-  totalPressure: { left: number, right: number };
-  averagePressure: { left: number, right: number };
-  areaCount: { left: number, right: number };
+  totalPressure: { left: number, right: number },
+  averagePressure: { left: number, right: number },
+  areaCount: { left: number, right: number }
 }
 
 interface PeakPressureData {
-  peakPressure: { left: number, right: number };
-  peakPressurePosition: { left: string, right: string };
-  footArea: { left: number, right: number };
-  copiIndex: { left: number, right: number };
+  peakPressure: { left: number, right: number },
+  peakPressurePosition: { left: string, right: string },
+  footArea: { left: number, right: number },
+  copiIndex: { left: number, right: number }
 }
 
 interface BalanceData {
-  left: number;
-  right: number;
-  direction: string;
-  rate: number;
-  balance: string;
+  left: number,
+  right: number,
+  direction: string,
+  rate: number,
+  balance: string
 }
 
 const InputDiagDataPage = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const memberId = searchParams.get('memberId');
-  const diagnosticId = searchParams.get('diagnosticId');
-
   const [pressureData, setPressureData] = useState<PressureData | null>(null);
   const [peakPressureData, setPeakPressureData] = useState<PeakPressureData | null>(null);
   const [balanceData, setBalanceData] = useState<BalanceData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (memberId && diagnosticId) {
-      fetchDiagnosticData(memberId, diagnosticId);
-    }
-  }, [memberId, diagnosticId]);
-
-  const fetchDiagnosticData = async (memberId: string, diagnosticId: string) => {
-    try {
-      const docRef = doc(db, 'users', memberId, 'diagDate', diagnosticId);
+    const fetchData = async () => {
+      const docRef = doc(db, 'users', 'he4tF9U41CUIhydjv1g3Qcr74cn2', 'diagDate', '2024-08-07');
       const docSnap = await getDoc(docRef);
+
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setPressureData(data.pressureData);
-        setPeakPressureData(data.peakPressureData);
-        setBalanceData(data.balanceData);
+        // setPressureData(data.pressureData);
+        // setPeakPressureData(data.peakPressureData);
+        // setBalanceData(data.balanceData);
+        setPressureData(data.examplePressureData);
+        setPeakPressureData(data.examplePeakPressureData);
+        setBalanceData(data.exampleBalanceData);
       } else {
         console.log("No such document!");
       }
-    } catch (error) {
-      console.error("Error fetching diagnostic data: ", error);
-    }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleEdit = () => {
+    setIsEditing(true);
   };
 
-  const handleSave = async () => {
-    if (memberId && diagnosticId && pressureData && peakPressureData && balanceData) {
-      try {
-        const docRef = doc(db, 'users', memberId, 'diagDate', diagnosticId);
-        await setDoc(docRef, {
-          pressureData,
-          peakPressureData,
-          balanceData
-        });
-        router.push(`/admin/settings/medilist?memberId=${memberId}`);
-      } catch (error) {
-        console.error("Error saving diagnostic data: ", error);
-      }
-    }
+  const handleSave = () => {
+    setIsEditing(false);
+    // 여기에서 실제로 데이터를 저장하는 로직을 추가
   };
 
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    category: 'pressure' | 'peakPressure' | 'balance',
-    key: string,
-    foot: 'left' | 'right'
-  ) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, category: 'pressure' | 'peakPressure' | 'balance', key: string, foot: 'left' | 'right') => {
     const value = e.target.value;
     const numberValue = parseFloat(value);
 
     if (category === 'pressure') {
-      setPressureData((prev) =>
-        prev && {
-          ...prev,
-          [key]: {
-            ...prev[key as keyof PressureData],
-            [foot]: isNaN(numberValue) ? value : numberValue
-          }
+      setPressureData(prev => prev && ({
+        ...prev,
+        [key]: {
+          ...prev[key as keyof PressureData],
+          [foot]: isNaN(numberValue) ? value : numberValue
         }
-      );
+      }));
     } else if (category === 'peakPressure') {
-      setPeakPressureData((prev) =>
-        prev && {
-          ...prev,
-          [key]: {
-            ...prev[key as keyof PeakPressureData],
-            [foot]: isNaN(numberValue) ? value : numberValue
-          }
+      setPeakPressureData(prev => prev && ({
+        ...prev,
+        [key]: {
+          ...prev[key as keyof PeakPressureData],
+          [foot]: isNaN(numberValue) ? value : numberValue
         }
-      );
+      }));
     } else if (category === 'balance') {
-      setBalanceData((prev) =>
-        prev && {
-          ...prev,
-          [key]: isNaN(numberValue) ? value : numberValue
-        }
-      );
+      setBalanceData(prev => prev && ({
+        ...prev,
+        [key]: isNaN(numberValue) ? value : numberValue
+      }));
     }
   };
 
   return (
     <div className="flex flex-col bg-white min-h-screen">
       <div className='flex border-b border-gray-500 justify-between px-60 py-3'>
-        <button className='text-black' onClick={() => router.back()}>
+        <button className='text-black'>
           <ChevronLeft />
         </button>
-        <button className='text-black' onClick={() => router.push(`/admin/settings/medilist?memberId=${memberId}`)}>
+        <button className='text-black'>
           <X />
         </button>
       </div>
 
       <main className="flex-1 py-8 px-40">
-        <h1 className="text-2xl text-black mb-10 ml-20">id <span className='text-gray-500'>{memberId}</span></h1>
+        <h1 className="text-2xl text-black mb-10 ml-20">id <span className='text-gray-500'>01</span></h1>
         <div className="bg-white rounded-lg overflow-x-auto px-20">
           <h2 className="text-xl text-black mb-4">발 압력 분포 분석</h2>
           {pressureData && (
@@ -473,7 +448,7 @@ const InputDiagDataPage = () => {
           )}
         </div>
         <div className="flex justify-center mt-12">
-          <button className="bg-white text-black px-9 py-2 rounded mr-5 border border-gray-300" >수정</button> 
+          <button className="bg-white text-black px-9 py-2 rounded mr-5 border border-gray-300" onClick={handleEdit}>수정</button>
           <button className="bg-green-500 text-white px-9 py-2 rounded" onClick={handleSave}>저장</button>
         </div>
       </main>
