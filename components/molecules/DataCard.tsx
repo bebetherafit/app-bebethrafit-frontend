@@ -29,7 +29,7 @@ const DataCard: React.FC<DataCardProps> = ({ title, image, footPressureDistribut
       )}
       <h3 className="text-lg font-semibold mb-3 text-black">{title}</h3>
       {footPressureDistribution && (
-        <div className="mt-4">
+        <div className="mt-4 text-gray-500">
           <h4 className="text-md font-semibold mb-2">Foot Pressure Distribution</h4>
           <div className="flex justify-between">
             {leftFootData && (
@@ -52,7 +52,7 @@ const DataCard: React.FC<DataCardProps> = ({ title, image, footPressureDistribut
         </div>
       )}
       {bodyBalance && (
-        <div className="mt-4">
+        <div className="mt-4 text-gray-500">
           <h4 className="text-md font-semibold mb-2">Body Balance</h4>
           <p>Left: {bodyBalance.left}</p>
           <p>Right: {bodyBalance.right}</p>
