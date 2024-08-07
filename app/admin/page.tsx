@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import AdminSidebar from '../components/organisms/AdminSidebar';
+import AdminSidebar from '@/components/organisms/AdminSidebar';
 
 interface User {
   id: number;

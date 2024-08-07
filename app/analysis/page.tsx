@@ -9,7 +9,7 @@ const VisualizationAnalysisPage = () => {
       <Sidebar />
       <div className="flex-1 p-5">
         <div className="flex justify-between bg-white p-4">
-          <h1 className="text-2xl font-bold">발 타입 시각화 (Visualization)</h1>
+          <h2 className="text-2xl font-semibold mb-4">발 타입 시각화 (Visualization)</h2>
           <button className="text-green-500 flex items-center">
             데이터 불러오기 <span className="ml-1">↓</span>
           </button>
