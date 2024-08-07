@@ -1,10 +1,10 @@
 // app/measurement-records/page.tsx
 'use client';
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import MeasurementRecordItem from '@/components/molecules/MeasurementRecordItem';
 
-const MeasurementRecordsPage = () => {
+const MeasurementRecordsContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const documentIds = searchParams.get('ids')?.split(',') || [];
@@ -58,5 +58,11 @@ const MeasurementRecordsPage = () => {
     </div>
   );
 };
+
+const MeasurementRecordsPage = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <MeasurementRecordsContent />
+  </Suspense>
+);
 
 export default MeasurementRecordsPage;

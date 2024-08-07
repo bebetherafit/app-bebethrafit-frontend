@@ -1,6 +1,6 @@
 // app/dashboard/page.tsx
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { auth, db } from '@/lib/firebase';
 import Sidebar from '@/components/organisms/Sidebar';
@@ -10,7 +10,7 @@ import MeasurementDateSelector from '@/components/molecules/MeasurementDateSelec
 import { useAuth } from '../context/AuthProvider';
 import { collection, getDocs } from 'firebase/firestore';
 
-const DashboardPage = () => {
+const DashboardContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dateFromQuery = searchParams.get('date');
@@ -129,5 +129,11 @@ const DashboardPage = () => {
     </div>
   );
 };
+
+const DashboardPage = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <DashboardContent />
+  </Suspense>
+);
 
 export default DashboardPage;
