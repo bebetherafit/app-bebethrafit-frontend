@@ -1,17 +1,17 @@
 // app/dashboard/page.tsx
 'use client'
-import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { auth, db } from '@/lib/firebase';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { db } from '@/lib/firebase';
 import Sidebar from '@/components/organisms/Sidebar';
 import DataCard from '@/components/molecules/DataCard';
 import FootImage from '@/components/molecules/FootImage';
+import PressureChart from '@/components/organisms/PressureChart';
 import MeasurementDateSelector from '@/components/molecules/MeasurementDateSelector';
 import { useAuth } from '../context/AuthProvider';
 import { collection, getDocs } from 'firebase/firestore';
 
-const DashboardPage = () => {
-  const router = useRouter();
+const DashboardContent = () => {
   const searchParams = useSearchParams();
   const dateFromQuery = searchParams.get('date');
   
@@ -87,6 +87,11 @@ const DashboardPage = () => {
     return <p>Loading...</p>;
   }
 
+  const footPressureData = [
+    { side: 'left', total: 96.12, mean: 96.12, cell: 0 },
+    { side: 'right', total: 96.12, mean: 96.12, cell: 0 },
+  ];
+
   return (
     <div className="flex bg-gray-100 min-h-screen">
       <Sidebar />
@@ -125,12 +130,13 @@ const DashboardPage = () => {
         </div>
 
         <div className="mt-6">
-          <div className="grid gap-6">
+          <div className="grid grid-cols-2 gap-6">
             <DataCard
               title="발 총 압력 (Total Pressure)"
               image=""
               footPressureDistribution={[
                 { side: 'left', total: 96.12, mean: 0, cell: 0 },
+                { side: 'right', total: 96.12, mean: 0, cell: 0 },
               ]}
             />
             <DataCard
@@ -138,11 +144,13 @@ const DashboardPage = () => {
               image=""
               footPressureDistribution={[
                 { side: 'left', total: 0, mean: 96.12, cell: 0 },
+                { side: 'right', total: 0, mean: 96.12, cell: 0 },
               ]}
             />
           </div>
         </div>
 
+        {/* Uncomment and adjust these sections as needed
         <div className="mt-6">
           <h2 className="text-xl font-semibold mb-4">발 최고 압력 (Peak Pressure)</h2>
           <div className="grid grid-cols-2 gap-6">
@@ -165,9 +173,16 @@ const DashboardPage = () => {
             />
           </div>
         </div>
+        */}
       </main>
     </div>
   );
 };
+
+const DashboardPage = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <DashboardContent />
+  </Suspense>
+);
 
 export default DashboardPage;
