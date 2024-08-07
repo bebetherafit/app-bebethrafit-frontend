@@ -24,9 +24,15 @@ const DashboardPage = () => {
           try {
             const diagDateCollectionRef = collection(db, 'users', userUid, 'diagDate');
             const querySnapshot = await getDocs(diagDateCollectionRef);
+            let latestDate = '';
             querySnapshot.forEach((doc) => {
+              const docDate = doc.id;  // 문서 ID가 날짜라고 가정
+              if (!latestDate || new Date(docDate) > new Date(latestDate)) {
+                latestDate = docDate;
+              }
               console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
             });
+            setCurrentDate(latestDate);  // 최신 날짜로 상태 업데이트
           } catch (error) {
             console.error('Error fetching data:', error);
           }
