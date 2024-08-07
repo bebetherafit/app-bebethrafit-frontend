@@ -31,12 +31,13 @@ const LoginPage: React.FC = () => {
       }
       else {
         const docRef = doc(db, 'users', res.user.uid); // 로그인 후 user.uid를 사용하여 docRef를 설정
+        sessionStorage.setItem('uid', res.user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           console.log("Document data:", docSnap.data());
           if (docSnap.data()?.isAdmin === true) {
             console.log("access confirm to admin page");
-            sessionStorage.setItem('uid', res.user.uid);
+            // sessionStorage.setItem('username', res.user.username);
             sessionStorage.setItem('isAdmin', 'true');
             router.push('/admin/settings'); // isAdmin이 true인 경우 admin/settings page로 이동
           } else {
