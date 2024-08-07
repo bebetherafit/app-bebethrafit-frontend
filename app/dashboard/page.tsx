@@ -7,8 +7,10 @@ import Sidebar from '@/components/organisms/Sidebar';
 import DataCard from '@/components/molecules/DataCard';
 import PressureChart from '@/components/organisms/PressureChart';
 import MeasurementDateSelector from '@/components/molecules/MeasurementDateSelector';
+import DataViz from '@/components/organisms/DataViz';
 import { useAuth } from '../context/AuthProvider';
 import { collection, getDocs } from 'firebase/firestore';
+
 
 const DashboardContent = () => {
   const searchParams = useSearchParams();
@@ -142,6 +144,54 @@ const DashboardContent = () => {
             type="mean"
           />
         </div>
+        <div className="bg-white rounded-md p-4 mt-6 w-full">
+          <div className='flex'>
+          <DataViz
+            title="발 최고 압력"
+            imageUrl="/images/foot.png"
+            footDirection={diagData.footDirection}
+            tableData={[
+              ['', '왼발'],
+              ['발 최고 압력값(kPa)', 0],
+              ['발 최고 압력 위치', 0],
+            ]}
+          />
+          <DataViz
+            title=""
+            imageUrl="/images/foot.png"
+            footDirection={diagData.footDirection}
+            tableData={[
+              ['', '오른발'],
+              ['발 최고 압력값(kPa)', 0],
+              ['발 최고 압력 위치', 0],
+            ]}
+          />
+          </div>
+          <div className='flex'>
+          <DataViz
+            title="발 면적분석"
+            imageUrl="/images/foot.png"
+            footDirection={diagData.footDirection}
+            tableData={[
+              ['', '왼발'],
+              ['발 면적 수 (N/Cell)', 0],
+              ['발 면적(cm2)', 0],
+            ]}
+          />
+          <DataViz
+            title=""
+            imageUrl="/images/foot.png"
+            footDirection={diagData.footDirection}
+            tableData={[
+              ['', '오른발'],
+              ['발 면적 수 (N/Cell)', 0],
+              ['발 면적(cm2)', 0],
+            ]}
+          />
+          </div>
+        </div>
+        
+          
       </main>
     </div>
   );
