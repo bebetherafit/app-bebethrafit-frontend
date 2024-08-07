@@ -175,7 +175,7 @@ const VisualizationAnalysisPage: React.FC = () => {
                     const intensity = (roundedValue === '0.0') ? 0 : Math.min(Math.floor((roundedValue as unknown as number) / 15), 6); // 0은 흰색 유지
                     const backgroundColor = roundedValue === '0.0' ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
                     return (
-                      <div key={idx} className="border px-1 py-4 text-center" style={{ backgroundColor }}>
+                      <div key={idx} className="border px-1 py-4 text-center text-xs" style={{ backgroundColor }}>
                         {roundedValue}
                       </div>
                     );
@@ -189,7 +189,7 @@ const VisualizationAnalysisPage: React.FC = () => {
                     const intensity = (roundedValue === '0.0') ? 0 : Math.min(Math.floor((roundedValue as unknown as number) / 15), 6); // 0은 흰색 유지
                     const backgroundColor = roundedValue === '0.0' ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
                     return (
-                      <div key={idx} className="border px-1 py-4 text-center" style={{ backgroundColor }}>
+                      <div key={idx} className="border px-1 py-4 text-center text-xs" style={{ backgroundColor }}>
                         {roundedValue}
                       </div>
                     );
