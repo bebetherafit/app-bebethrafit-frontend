@@ -206,7 +206,7 @@ const VisualizationAnalysisPage: React.FC = () => {
 
         <div className="bg-white p-4 mb-8">
           <h2 className="text-xl font-semibold mb-4">발 타임 초당 시각화 (Visualization per second)</h2>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-6 gap-4">
             {averageData.slice(0, 16).map((dataRow, index) => (
               <React.Fragment key={index}>
                 <div className="border p-2">
@@ -217,7 +217,7 @@ const VisualizationAnalysisPage: React.FC = () => {
                       const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
                       const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
                       return (
-                        <div key={idx} className="border px-0 py-3 text-center text-[8px]" style={{ backgroundColor }}>
+                        <div key={idx} className="border px-1 py-2 text-center text-[0px]" style={{ backgroundColor }}>
                           {roundedValue}
                         </div>
                       );
@@ -232,7 +232,7 @@ const VisualizationAnalysisPage: React.FC = () => {
                       const intensity = (value === 0) ? 0 : Math.min(Math.floor((value as number) / 15), 6); // 0은 흰색 유지
                       const backgroundColor = value === 0 ? 'rgba(255, 255, 255, 1)' : `rgba(255, 0, 0, ${(intensity + 1) / 7})`; // 7단계 붉은색
                       return (
-                        <div key={idx} className="border px-0 py-3 text-center text-[8px]" style={{ backgroundColor }}>
+                        <div key={idx} className="border px-1 py-2 text-center text-[0px]" style={{ backgroundColor }}>
                           {roundedValue}
                         </div>
                       );
