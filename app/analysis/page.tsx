@@ -12,6 +12,7 @@ type DataDictionary = {
   [timestamp: string]: number[][];
 };
 
+
 const convertToDictionary = (dataArray: DataRow[]): DataDictionary => {
   return dataArray.reduce((acc, row) => {
     const { id, timestamp, ...values } = row; // id 제외
@@ -59,6 +60,13 @@ const VisualizationAnalysisPage: React.FC = () => {
   const [LCOPI, setLCOPI] = useState<number | null>(null);
   const [RCOPI, setRCOPI] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // get username from sessoion storage
+  const username = sessionStorage.getItem('username');
+  // get user's birth from session storage
+  const birth = sessionStorage.getItem('birth');
+  // cal age
+  const age = new Date().getFullYear() - parseInt(birth as string) + 1;
+
 
   useEffect(() => {
     // 컴포넌트 마운트 시 로컬 스토리지에서 데이터 로드
@@ -250,7 +258,7 @@ const VisualizationAnalysisPage: React.FC = () => {
         </div>
 
         <div className="bg-white p-4">
-          <div className='flex'>
+          <div className='flex justify-between'>
           <h2 className="text-xl font-semibold mb-4">발 타입 지수 (Center of Pressure Index)</h2>
           <p className="text-gray-500 text-sm mt-2"> * 발 타입 지수는 COPI 지수로 분석합니다 </p>
           </div>
@@ -267,11 +275,11 @@ const VisualizationAnalysisPage: React.FC = () => {
           <div className="bg-gray-100 p-4 rounded-lg">
             <div className="flex justify-between">
               <p>이름</p>
-              <p>김서우</p>
+              <p>{username}</p>
             </div>
             <div className="flex justify-between mt-2">
               <p>생년월일</p>
-              <p>2010-07-17 만 13세</p>
+              <p>{birth} {age}</p>
             </div>
           </div>
       </div>
