@@ -149,9 +149,8 @@ const DashboardContent = () => {
           <DataViz
             title="발 최고 압력"
             imageUrl="/images/foot.png"
-            footDirection={diagData.footDirection}
+            footDirection='왼발'
             tableData={[
-              ['', '왼발'],
               ['발 최고 압력값(kPa)', diagData.peakPressureData.peakPressure.left],
               ['발 최고 압력 위치', '발 중간'],
             ]}
@@ -159,9 +158,8 @@ const DashboardContent = () => {
           <DataViz
             title=""
             imageUrl="/images/foot.png"
-            footDirection={diagData.footDirection}
+            footDirection='오른발'
             tableData={[
-              ['', '오른발'],
               ['발 최고 압력값(kPa)', diagData.peakPressureData.peakPressure.right],
               ['발 최고 압력 위치', '발 바깥 쪽'],
             ]}
@@ -171,19 +169,17 @@ const DashboardContent = () => {
           <DataViz
             title="발 면적분석"
             imageUrl="/images/foot.png"
-            footDirection={diagData.footDirection}
+            footDirection='왼발'
             tableData={[
-              ['', '왼발'],
               ['발 면적 수 (N/10Cell)', diagData.pressureData.areaCount.left],
               ['발 면적(cm2)', diagData.peakPressureData.footArea.left],
             ]}
           />
           <DataViz
-            title=""
+            title="      "
             imageUrl="/images/foot.png"
-            footDirection={diagData.footDirection}
+            footDirection='오른발'
             tableData={[
-              ['', '오른발'],
               ['발 면적 수 (N/10Cell)', diagData.pressureData.areaCount.right],
               ['발 면적(cm2)', diagData.peakPressureData.footArea.right],
             ]}

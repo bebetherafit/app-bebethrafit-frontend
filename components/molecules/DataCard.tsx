@@ -33,7 +33,7 @@ const FootPressureTable: React.FC<{ data: FootPressureData[], indexLabels: strin
         <tr>
           <th className="border border-white px-4 py-2 bg-white"></th>
           {data.map((item, index) => (
-            <th key={index} className="border border-white px-4 py-2 bg-white">
+            <th key={index} className="border border-white px-4 py-2 rounded-full bg-green-200 text-green-700">
               {item.side}
             </th>
           ))}
@@ -42,9 +42,9 @@ const FootPressureTable: React.FC<{ data: FootPressureData[], indexLabels: strin
       <tbody>
         {indexLabels.map((label, rowIndex) => (
           <tr key={rowIndex}>
-            <td className="border border-white px-4 py-2 font-medium">{label}</td>
+            <td className="border border-white px-4 py-2 font-medium ">{label}</td>
             {data.map((item, colIndex) => (
-              <td key={colIndex} className="border border-white px-4 py-2 text-center">
+              <td key={colIndex} className="border border-white px-4 py-2 text-center ">
                 {rowIndex === 0 ? item.total :
                  rowIndex === 1 ? item.mean :
                  item.cell}
