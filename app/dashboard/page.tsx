@@ -100,21 +100,22 @@ const DashboardContent = () => {
           <DataCard
             title="발 압력 분포 분석"
             image="/images/foot.png"
-            indexLabels={['총 압력 값', '평균 압력 값', '면적 수']}
+            indexLabels={['총 압력 값', '평균 압력 값', '면적 수 (N/10Cell)']}
             footPressureDistribution={[
               { side: '왼발',
                 total: diagData.pressureData.totalPressure.left,
                 mean: diagData.pressureData.averagePressure.left,
-                cell: diagData.peakPressureData.peakPressure.left},
+                cell: diagData.pressureData.areaCount.left},
               { side: '오른발',
                 total: diagData.pressureData.totalPressure.right,
                 mean: diagData.pressureData.averagePressure.right,
-                cell: diagData.peakPressureData.peakPressure.right},
+                cell: diagData.pressureData.areaCount.right},
             ]}
           />
           <DataCard
             title="신체 균형 분석"
             image="/images/human-bal.png"
+            indexLabels={['왼발', '오른발']}
             bodyBalance={
               { left: diagData.balanceData.left,
                 right: diagData.balanceData.right,
@@ -151,7 +152,7 @@ const DashboardContent = () => {
             imageUrl="/images/foot.png"
             footDirection='왼발'
             tableData={[
-              ['발 최고 압력값(kPa)', diagData.peakPressureData.peakPressure.left],
+              ['발 최고 압력값 (kPa)', diagData.peakPressureData.peakPressure.left],
               ['발 최고 압력 위치', '발 중간'],
             ]}
           />
@@ -160,7 +161,7 @@ const DashboardContent = () => {
             imageUrl="/images/foot.png"
             footDirection='오른발'
             tableData={[
-              ['발 최고 압력값(kPa)', diagData.peakPressureData.peakPressure.right],
+              ['발 최고 압력값 (kPa)', diagData.peakPressureData.peakPressure.right],
               ['발 최고 압력 위치', '발 바깥 쪽'],
             ]}
           />
@@ -172,7 +173,7 @@ const DashboardContent = () => {
             footDirection='왼발'
             tableData={[
               ['발 면적 수 (N/10Cell)', diagData.pressureData.areaCount.left],
-              ['발 면적(cm2)', diagData.peakPressureData.footArea.left],
+              ['발 면적 (cm2)', diagData.peakPressureData.footArea.left],
             ]}
           />
           <DataViz

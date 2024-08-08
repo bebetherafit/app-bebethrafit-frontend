@@ -1,4 +1,5 @@
 import React from 'react';
+import { Interface } from 'readline';
 
 interface TableProps {
   rows: number;

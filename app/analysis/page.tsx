@@ -60,12 +60,13 @@ const VisualizationAnalysisPage: React.FC = () => {
   const [LCOPI, setLCOPI] = useState<number | null>(null);
   const [RCOPI, setRCOPI] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // get username from sessoion storage
-  const username = sessionStorage.getItem('username');
-  // get user's birth from session storage
-  const birth = sessionStorage.getItem('birth');
-  // cal age
-  const age = new Date().getFullYear() - parseInt(birth as string) + 1;
+  
+  // // get username from sessoion storage
+  // const username = sessionStorage.getItem('username');
+  // // get user's birth from session storage
+  // const birth = sessionStorage.getItem('birth');
+  // // cal age
+  // const age = new Date().getFullYear() - parseInt(birth as string) + 1;
 
 
   useEffect(() => {
@@ -275,11 +276,11 @@ const VisualizationAnalysisPage: React.FC = () => {
           <div className="bg-gray-100 p-4 rounded-lg">
             <div className="flex justify-between">
               <p>이름</p>
-              <p>{username}</p>
+              <p>가나다</p>
             </div>
             <div className="flex justify-between mt-2">
               <p>생년월일</p>
-              <p>{birth} {age}</p>
+              <p>20150101 10</p>
             </div>
           </div>
       </div>
