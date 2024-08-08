@@ -16,9 +16,9 @@ interface PressureChartProps {
 
 const PressureChart: React.FC<PressureChartProps> = ({ data, title, type }) => {
   return (
-    <div className="grid grid-rows-4 gap-1 p-4">
+    <div className="grid grid-rows-4 gap-3 p-4">
       <h2 className="text-xl font-semibold mb-1 text-gray-700">{title}</h2>
-      <div className="flex justify-between space-x-4">
+      <div className="flex w-4/5 mx-auto space-x-4">
         {data.map((item, index) => (
           <div key={index} className="flex-1">
             <PressureBar 
